@@ -1,76 +1,76 @@
 <template>
   <div class="register-form">
-    <h2>Inscription</h2>
+    <h2>{{ t('register') }}</h2>
     <form @submit.prevent="handleRegister" class="form">
       <div class="form-group">
-        <label for="nom">Nom *</label>
+        <label for="nom">{{ t('lastName') }} *</label>
         <input
           type="text"
           id="nom"
           v-model="formData.nom"
           required
           class="form-input"
-          placeholder="Votre nom"
+          :placeholder="getLastNamePlaceholder()"
         />
       </div>
 
       <div class="form-group">
-        <label for="prenom">Prénom *</label>
+        <label for="prenom">{{ t('firstName') }} *</label>
         <input
           type="text"
           id="prenom"
           v-model="formData.prenom"
           required
           class="form-input"
-          placeholder="Votre prénom"
+          :placeholder="getFirstNamePlaceholder()"
         />
       </div>
 
       <div class="form-group">
-        <label for="email">Email *</label>
+        <label for="email">{{ t('email') }} *</label>
         <input
           type="email"
           id="email"
           v-model="formData.email"
           required
           class="form-input"
-          placeholder="votre@email.com"
+          :placeholder="getEmailPlaceholder()"
         />
       </div>
 
       <div class="form-group">
-        <label for="tel">Téléphone *</label>
+        <label for="tel">{{ t('phone') }} *</label>
         <input
           type="tel"
           id="tel"
           v-model="formData.tel"
           required
           class="form-input"
-          placeholder="Votre numéro de téléphone"
+          :placeholder="getPhonePlaceholder()"
         />
       </div>
 
       <div class="form-group">
-        <label for="password">Mot de passe *</label>
+        <label for="password">{{ t('password') }} *</label>
         <input
           type="password"
           id="password"
           v-model="formData.password"
           required
           class="form-input"
-          placeholder="Votre mot de passe"
+          :placeholder="getPasswordPlaceholder()"
         />
       </div>
 
       <div class="form-group">
-        <label for="confirmPassword">Confirmer le mot de passe *</label>
+        <label for="confirmPassword">{{ getConfirmPasswordLabel() }} *</label>
         <input
           type="password"
           id="confirmPassword"
           v-model="confirmPassword"
           required
           class="form-input"
-          placeholder="Confirmer votre mot de passe"
+          :placeholder="getConfirmPasswordPlaceholder()"
         />
       </div>
 
@@ -83,19 +83,20 @@
       </div>
 
       <button type="submit" :disabled="loading" class="btn-submit">
-        {{ loading ? 'Inscription...' : 'S\'inscrire' }}
+        {{ loading ? getLoadingText() : getRegisterText() }}
       </button>
     </form>
 
     <p class="auth-link">
-      Déjà un compte ? 
-      <a href="#" @click="$emit('switchToLogin')">Se connecter</a>
+      {{ getHaveAccountText() }}
+      <a href="#" @click="$emit('switchToLogin')">{{ t('login') }}</a>
     </p>
   </div>
 </template>
 
 <script>
 import { authService } from '../services/api.js'
+import { translationService } from '../services/translation.js'
 
 export default {
   name: 'RegisterForm',
@@ -116,18 +117,162 @@ export default {
     }
   },
   methods: {
+    t(key) {
+      return translationService.t(key)
+    },
+
+    getFirstNamePlaceholder() {
+      const lang = translationService.getCurrentLanguage()
+      const placeholders = {
+        fr: 'Votre prénom',
+        en: 'Your first name',
+        ar: 'اسمك الأول'
+      }
+      return placeholders[lang] || placeholders.fr
+    },
+
+    getLastNamePlaceholder() {
+      const lang = translationService.getCurrentLanguage()
+      const placeholders = {
+        fr: 'Votre nom',
+        en: 'Your last name',
+        ar: 'اسم العائلة'
+      }
+      return placeholders[lang] || placeholders.fr
+    },
+
+    getEmailPlaceholder() {
+      const lang = translationService.getCurrentLanguage()
+      const placeholders = {
+        fr: 'votre@email.com',
+        en: 'your@email.com',
+        ar: 'email@example.com'
+      }
+      return placeholders[lang] || placeholders.fr
+    },
+
+    getPhonePlaceholder() {
+      const lang = translationService.getCurrentLanguage()
+      const placeholders = {
+        fr: 'Votre numéro de téléphone',
+        en: 'Your phone number',
+        ar: 'رقم هاتفك'
+      }
+      return placeholders[lang] || placeholders.fr
+    },
+
+    getPasswordPlaceholder() {
+      const lang = translationService.getCurrentLanguage()
+      const placeholders = {
+        fr: 'Votre mot de passe',
+        en: 'Your password',
+        ar: 'كلمة المرور'
+      }
+      return placeholders[lang] || placeholders.fr
+    },
+
+    getConfirmPasswordLabel() {
+      const lang = translationService.getCurrentLanguage()
+      const labels = {
+        fr: 'Confirmer le mot de passe',
+        en: 'Confirm password',
+        ar: 'تأكيد كلمة المرور'
+      }
+      return labels[lang] || labels.fr
+    },
+
+    getConfirmPasswordPlaceholder() {
+      const lang = translationService.getCurrentLanguage()
+      const placeholders = {
+        fr: 'Confirmer votre mot de passe',
+        en: 'Confirm your password',
+        ar: 'تأكيد كلمة المرور'
+      }
+      return placeholders[lang] || placeholders.fr
+    },
+
+    getLoadingText() {
+      const lang = translationService.getCurrentLanguage()
+      const texts = {
+        fr: 'Inscription...',
+        en: 'Registering...',
+        ar: 'جاري التسجيل...'
+      }
+      return texts[lang] || texts.fr
+    },
+
+    getRegisterText() {
+      const lang = translationService.getCurrentLanguage()
+      const texts = {
+        fr: 'S\'inscrire',
+        en: 'Sign up',
+        ar: 'إنشاء حساب'
+      }
+      return texts[lang] || texts.fr
+    },
+
+    getHaveAccountText() {
+      const lang = translationService.getCurrentLanguage()
+      const texts = {
+        fr: 'Déjà un compte ?',
+        en: 'Already have an account?',
+        ar: 'لديك حساب بالفعل؟'
+      }
+      return texts[lang] || texts.fr
+    },
+
+    getPasswordMismatchError() {
+      const lang = translationService.getCurrentLanguage()
+      const errors = {
+        fr: 'Les mots de passe ne correspondent pas',
+        en: 'Passwords do not match',
+        ar: 'كلمات المرور غير متطابقة'
+      }
+      return errors[lang] || errors.fr
+    },
+
+    getPasswordLengthError() {
+      const lang = translationService.getCurrentLanguage()
+      const errors = {
+        fr: 'Le mot de passe doit contenir au moins 6 caractères',
+        en: 'Password must be at least 6 characters long',
+        ar: 'يجب أن تحتوي كلمة المرور على 6 أحرف على الأقل'
+      }
+      return errors[lang] || errors.fr
+    },
+
+    getSuccessMessage() {
+      const lang = translationService.getCurrentLanguage()
+      const messages = {
+        fr: 'Inscription réussie ! Redirection...',
+        en: 'Registration successful! Redirecting...',
+        ar: 'تم التسجيل بنجاح! جاري التحويل...'
+      }
+      return messages[lang] || messages.fr
+    },
+
+    getErrorMessage() {
+      const lang = translationService.getCurrentLanguage()
+      const messages = {
+        fr: 'Erreur lors de l\'inscription',
+        en: 'Registration error',
+        ar: 'خطأ في التسجيل'
+      }
+      return messages[lang] || messages.fr
+    },
+
     async handleRegister() {
       this.error = ''
       this.success = ''
 
       // Validation des mots de passe
       if (this.formData.password !== this.confirmPassword) {
-        this.error = 'Les mots de passe ne correspondent pas'
+        this.error = this.getPasswordMismatchError()
         return
       }
 
       if (this.formData.password.length < 6) {
-        this.error = 'Le mot de passe doit contenir au moins 6 caractères'
+        this.error = this.getPasswordLengthError()
         return
       }
 
@@ -140,14 +285,14 @@ export default {
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('user', JSON.stringify(response.data.user))
         
-        this.success = 'Inscription réussie ! Redirection...'
+        this.success = this.getSuccessMessage()
         
         setTimeout(() => {
           this.$emit('authSuccess', response.data.user)
         }, 1500)
 
       } catch (error) {
-        this.error = error.response?.data?.message || 'Erreur lors de l\'inscription'
+        this.error = error.response?.data?.message || this.getErrorMessage()
       } finally {
         this.loading = false
       }

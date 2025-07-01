@@ -1,34 +1,37 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{ 'rtl': isRTL }">
     <div class="app-container">
-      <!-- Header -->
-      <header class="app-header">
-        <div class="header-content">
-          <h1 class="app-title">SKMERN Auth</h1>
-          <div v-if="currentUser" class="user-info">
-            Bienvenue, {{ currentUser.prenom }} {{ currentUser.nom }}
-          </div>
-        </div>
-      </header>
+      <!-- Header Component -->
+      <AppHeader 
+        :currentView="currentView"
+        :isAuthenticated="isAuthenticated"
+        :currentUser="currentUser"
+        @viewChange="handleViewChange"
+        @logout="handleLogout"
+        @languageChanged="handleLanguageChange"
+      />
 
       <!-- Main Content -->
       <main class="app-main">
-        <!-- Si l'utilisateur n'est pas connecté -->
-        <div v-if="!isAuthenticated" class="auth-container">
+        <!-- Page d'accueil -->
+        <HomePage v-if="currentView === 'home'" />
+        
+        <!-- Pages d'authentification -->
+        <div v-else-if="!isAuthenticated" class="auth-container">
           <div class="auth-tabs">
             <button 
               @click="currentView = 'login'" 
               :class="{ active: currentView === 'login' }"
               class="tab-button"
             >
-              Connexion
+              {{ t('login') }}
             </button>
             <button 
               @click="currentView = 'register'" 
               :class="{ active: currentView === 'register' }"
               class="tab-button"
             >
-              Inscription
+              {{ t('register') }}
             </button>
           </div>
 
@@ -46,7 +49,7 @@
           </div>
         </div>
 
-        <!-- Si l'utilisateur est connecté -->
+        <!-- Dashboard utilisateur -->
         <div v-else class="dashboard-container">
           <UserProfile 
             :user="currentUser"
@@ -56,10 +59,8 @@
         </div>
       </main>
 
-      <!-- Footer -->
-      <footer class="app-footer">
-        <p>&copy; 2024 SKMERN. Système d'authentification complet.</p>
-      </footer>
+      <!-- Footer Component -->
+      <AppFooter />
     </div>
   </div>
 </template>
@@ -68,36 +69,63 @@
 import LoginForm from './components/LoginForm.vue'
 import RegisterForm from './components/RegisterForm.vue'
 import UserProfile from './components/UserProfile.vue'
+import HomePage from './components/HomePage.vue'
+import AppHeader from './components/AppHeader.vue'
+import AppFooter from './components/AppFooter.vue'
 import { authService } from './services/api.js'
+import { translationService } from './services/translation.js'
 
 export default {
   name: 'App',
   components: {
     LoginForm,
     RegisterForm,
-    UserProfile
+    UserProfile,
+    HomePage,
+    AppHeader,
+    AppFooter
   },
   data() {
     return {
-      currentView: 'login', // 'login' ou 'register'
+      currentView: 'home', // 'home', 'login', 'register'
       currentUser: null,
       isAuthenticated: false
     }
   },
+  computed: {
+    isRTL() {
+      return translationService.isRTL()
+    }
+  },
   methods: {
+    t(key) {
+      return translationService.t(key)
+    },
+
     handleAuthSuccess(user) {
       this.currentUser = user
       this.isAuthenticated = true
+      this.currentView = 'home'
     },
 
     handleLogout() {
+      authService.logout()
       this.currentUser = null
       this.isAuthenticated = false
-      this.currentView = 'login'
+      this.currentView = 'home'
     },
 
     handleUserUpdated(updatedUser) {
       this.currentUser = updatedUser
+    },
+
+    handleLanguageChange(languageCode) {
+      // Force update of the component to reflect language changes
+      this.$forceUpdate()
+    },
+
+    handleViewChange(view) {
+      this.currentView = view
     },
 
     checkAuthState() {
@@ -112,6 +140,8 @@ export default {
     }
   },
   mounted() {
+    // Initialiser le service de traduction
+    translationService.init()
     this.checkAuthState()
   }
 }
@@ -125,72 +155,80 @@ export default {
   box-sizing: border-box;
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+html, body {
+  width: 100vw;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', 'Arabic UI Text', Tahoma, 'Dubai', Geneva, Verdana, sans-serif;
   line-height: 1.6;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+  margin: 0;
+  padding: 0;
   min-height: 100vh;
+  width: 100vw;
+  max-width: 100vw;
+  box-sizing: border-box;
+  color: var(--text-light);
+}
+
+body[dir="rtl"] {
+  font-family: 'Arabic UI Text', 'Segoe UI', 'Tahoma', 'Dubai', sans-serif;
 }
 
 #app {
   min-height: 100vh;
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .app-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
 }
 
-/* Header */
-.app-header {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 1rem 0;
-}
 
-.header-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.app-title {
-  color: white;
-  font-size: 2rem;
-  font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.user-info {
-  color: white;
-  font-weight: 500;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  backdrop-filter: blur(5px);
-}
 
 /* Main Content */
 .app-main {
   flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  display: block;
+  width: 100%;
+  padding: 0;
 }
 
 .auth-container {
   width: 100%;
   max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 .auth-tabs {
-  display: flex;
+    display: flex;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px 8px 0 0;
   overflow: hidden;
@@ -217,45 +255,68 @@ body {
 .tab-button.active {
   background: rgba(255, 255, 255, 0.2);
   color: white;
-}
+  }
 
 .auth-content {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 0 0 8px 8px;
   overflow: hidden;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .dashboard-container {
   width: 100%;
   max-width: 1000px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-light);
+  padding: 2rem;
+  margin: 2rem auto;
 }
 
 /* Footer */
 .app-footer {
-  background: rgba(0, 0, 0, 0.3);
-  color: rgba(255, 255, 255, 0.8);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: rgba(255, 255, 255, 0.9);
   text-align: center;
-  padding: 1rem;
-  backdrop-filter: blur(10px);
+  padding: 2rem;
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Styles RTL */
+.rtl {
+  direction: rtl;
+}
+
+.rtl .header-content {
+  direction: rtl;
+}
+
+.rtl .header-left {
+  order: 2;
+}
+
+.rtl .header-right {
+  order: 1;
+}
+
+.rtl .main-nav {
+  flex-direction: row-reverse;
+}
+
+.rtl .user-info {
+  flex-direction: row-reverse;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .header-content {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
-
-  .app-title {
-    font-size: 1.5rem;
-  }
-
   .app-main {
     padding: 1rem;
   }

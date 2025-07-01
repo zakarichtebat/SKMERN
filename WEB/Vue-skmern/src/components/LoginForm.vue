@@ -1,28 +1,28 @@
 <template>
   <div class="login-form">
-    <h2>Connexion</h2>
+    <h2>{{ t('login') }}</h2>
     <form @submit.prevent="handleLogin" class="form">
       <div class="form-group">
-        <label for="email">Email *</label>
+        <label for="email">{{ t('email') }} *</label>
         <input
           type="email"
           id="email"
           v-model="formData.email"
           required
           class="form-input"
-          placeholder="votre@email.com"
+          :placeholder="getEmailPlaceholder()"
         />
       </div>
 
       <div class="form-group">
-        <label for="password">Mot de passe *</label>
+        <label for="password">{{ t('password') }} *</label>
         <input
           type="password"
           id="password"
           v-model="formData.password"
           required
           class="form-input"
-          placeholder="Votre mot de passe"
+          :placeholder="getPasswordPlaceholder()"
         />
       </div>
 
@@ -35,19 +35,20 @@
       </div>
 
       <button type="submit" :disabled="loading" class="btn-submit">
-        {{ loading ? 'Connexion...' : 'Se connecter' }}
+        {{ loading ? getLoadingText() : getLoginText() }}
       </button>
     </form>
 
     <p class="auth-link">
-      Pas encore de compte ? 
-      <a href="#" @click="$emit('switchToRegister')">S'inscrire</a>
+      {{ getNoAccountText() }}
+      <a href="#" @click="$emit('switchToRegister')">{{ t('register') }}</a>
     </p>
   </div>
 </template>
 
 <script>
 import { authService } from '../services/api.js'
+import { translationService } from '../services/translation.js'
 
 export default {
   name: 'LoginForm',
@@ -64,6 +65,80 @@ export default {
     }
   },
   methods: {
+    t(key) {
+      return translationService.t(key)
+    },
+
+    getEmailPlaceholder() {
+      const lang = translationService.getCurrentLanguage()
+      const placeholders = {
+        fr: 'votre@email.com',
+        en: 'your@email.com',
+        ar: 'email@example.com'
+      }
+      return placeholders[lang] || placeholders.fr
+    },
+
+    getPasswordPlaceholder() {
+      const lang = translationService.getCurrentLanguage()
+      const placeholders = {
+        fr: 'Votre mot de passe',
+        en: 'Your password',
+        ar: 'كلمة المرور'
+      }
+      return placeholders[lang] || placeholders.fr
+    },
+
+    getLoadingText() {
+      const lang = translationService.getCurrentLanguage()
+      const texts = {
+        fr: 'Connexion...',
+        en: 'Logging in...',
+        ar: 'جاري تسجيل الدخول...'
+      }
+      return texts[lang] || texts.fr
+    },
+
+    getLoginText() {
+      const lang = translationService.getCurrentLanguage()
+      const texts = {
+        fr: 'Se connecter',
+        en: 'Sign in',
+        ar: 'تسجيل الدخول'
+      }
+      return texts[lang] || texts.fr
+    },
+
+    getNoAccountText() {
+      const lang = translationService.getCurrentLanguage()
+      const texts = {
+        fr: 'Pas encore de compte ?',
+        en: "Don't have an account?",
+        ar: 'ليس لديك حساب؟'
+      }
+      return texts[lang] || texts.fr
+    },
+
+    getSuccessMessage() {
+      const lang = translationService.getCurrentLanguage()
+      const messages = {
+        fr: 'Connexion réussie ! Redirection...',
+        en: 'Login successful! Redirecting...',
+        ar: 'تم تسجيل الدخول بنجاح! جاري التحويل...'
+      }
+      return messages[lang] || messages.fr
+    },
+
+    getErrorMessage(defaultMessage) {
+      const lang = translationService.getCurrentLanguage()
+      const messages = {
+        fr: 'Erreur lors de la connexion',
+        en: 'Login error',
+        ar: 'خطأ في تسجيل الدخول'
+      }
+      return defaultMessage || messages[lang] || messages.fr
+    },
+
     async handleLogin() {
       this.error = ''
       this.success = ''
@@ -76,14 +151,14 @@ export default {
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('user', JSON.stringify(response.data.user))
         
-        this.success = 'Connexion réussie ! Redirection...'
+        this.success = this.getSuccessMessage()
         
         setTimeout(() => {
           this.$emit('authSuccess', response.data.user)
         }, 1500)
 
       } catch (error) {
-        this.error = error.response?.data?.message || 'Erreur lors de la connexion'
+        this.error = error.response?.data?.message || this.getErrorMessage()
       } finally {
         this.loading = false
       }
