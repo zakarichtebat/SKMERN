@@ -92,7 +92,7 @@ SKMERN/
 ### 1. Cloner le repository
 
 ```bash
-git clone git@github.com:zakarichtebat/SKMERN.git
+git clone https://github.com/zakarichtebat/SKMERN.git
 cd SKMERN
 ```
 
