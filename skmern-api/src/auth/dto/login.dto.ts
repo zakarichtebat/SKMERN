@@ -8,7 +8,7 @@ export class LoginDto {
     format: 'email'
   })
   @IsEmail()
-  email: string;
+  email!: string;
 
   @ApiProperty({
     description: 'Mot de passe de l\'utilisateur',
@@ -16,5 +16,5 @@ export class LoginDto {
   })
   @IsNotEmpty()
   @IsString()
-  password: string;
+  password!: string;
 } 

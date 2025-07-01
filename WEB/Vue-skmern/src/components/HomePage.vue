@@ -6,11 +6,16 @@
 <template>
   <div class="home-page">
     <!-- Section Hero avec animation 3D -->
-    <section class="hero-section" :class="`bg-image-${currentImageIndex + 1}`">
+    <section class="hero-section">
+      <div class="hero-background">
+        <div class="hero-image" :style="{ backgroundImage: 'url(' + currentImage + ')' }"></div>
+        <div class="hero-overlay"></div>
+      </div>
+      
       <div class="hero-content">
-        <!-- Animation de particules en arrière-plan -->
+        <!-- Animation de particules optimisée -->
         <div class="particles-bg">
-          <div v-for="i in 50" :key="i" class="particle"></div>
+          <div v-for="i in 10" :key="i" class="particle"></div>
         </div>
         
         <!-- Contenu principal du hero -->
@@ -25,16 +30,14 @@
           <div class="hero-buttons">
             <button class="cta-button primary" @click="scrollToServices">
               <span>Découvrir nos services</span>
-              <div class="button-bg"></div>
             </button>
             <button class="cta-button secondary" @click="$emit('viewChange', 'register')">
               <span>Rejoindre maintenant</span>
-              <div class="button-bg"></div>
             </button>
           </div>
         </div>
         
-        <!-- Animation 3D du logo/illustration -->
+        <!-- Animation 3D simplifiée -->
         <div class="hero-visual">
           <div class="floating-card card-1">
             <div class="card-icon">🏠</div>
@@ -62,13 +65,33 @@
       </div>
     </section>
 
-    <!-- Section Services avec filtres -->
+    <!-- Section Services Ultra-Professionnelle -->
     <section ref="servicesSection" class="services-section">
       <div class="container">
-        <h2 class="section-title">Nos Services</h2>
-        <p class="section-subtitle">Des services de qualité pour votre quotidien</p>
+        <!-- Header Section Premium -->
+        <div class="services-header">
+          <div class="header-content">
+            <span class="header-badge">🏆 Excellence</span>
+            <h2 class="section-title">Nos Services</h2>
+            <p class="section-subtitle">Des solutions professionnelles adaptées à tous vos besoins quotidiens</p>
+          </div>
+          <div class="header-stats">
+            <div class="stat-item">
+              <span class="stat-number">1000+</span>
+              <span class="stat-label">Interventions</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">98%</span>
+              <span class="stat-label">Satisfaction</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">24h</span>
+              <span class="stat-label">Support</span>
+            </div>
+          </div>
+        </div>
         
-        <!-- Filtres de catégorie -->
+        <!-- Filtres Ultra-Modernes -->
         <div class="service-filters">
           <button 
             v-for="category in serviceCategories" 
@@ -78,10 +101,11 @@
           >
             <span class="filter-icon">{{ category.icon }}</span>
             <span>{{ category.name }}</span>
+            <div class="filter-ripple"></div>
           </button>
         </div>
         
-        <!-- Grille des services -->
+        <!-- Grille Services Premium -->
         <div class="services-grid">
           <div 
             v-for="service in filteredServices" 
@@ -89,26 +113,71 @@
             class="service-card"
             @click="openServiceDetail(service)"
           >
-            <div class="service-image">
-              <div class="service-icon">{{ service.icon }}</div>
-              <div class="service-overlay">
-                <button class="view-details">Voir détails</button>
+            <!-- Background Pattern -->
+            <div class="card-pattern"></div>
+            
+            <!-- Service Header -->
+            <div class="service-header" :style="{ backgroundImage: 'linear-gradient(rgba(30, 60, 114, 0.8), rgba(79, 172, 254, 0.8)), url(' + service.image + ')' }">
+              <div class="service-icon-container">
+                <div class="service-icon">{{ service.icon }}</div>
+                <div class="icon-glow"></div>
               </div>
+              <div class="service-badge">Premium</div>
             </div>
+            
+            <!-- Service Content -->
             <div class="service-content">
               <h3 class="service-title">{{ service.title }}</h3>
               <p class="service-description">{{ service.description }}</p>
+              
+              <!-- Rating Premium -->
               <div class="service-rating">
                 <div class="stars">
                   <span v-for="star in 5" :key="star" 
                         :class="['star', { filled: star <= service.rating }]">⭐</span>
                 </div>
+                <span class="rating-score">{{ service.rating }}</span>
                 <span class="rating-text">({{ service.reviews }} avis)</span>
               </div>
-              <div class="service-price">
-                À partir de <strong>{{ service.price }}€</strong>
+              
+              <!-- Features -->
+              <div class="service-features">
+                <div class="feature-item">
+                  <span class="feature-icon">✓</span>
+                  <span>Professionnel certifié</span>
+                </div>
+                <div class="feature-item">
+                  <span class="feature-icon">⚡</span>
+                  <span>Intervention rapide</span>
+                </div>
+                <div class="feature-item">
+                  <span class="feature-icon">🛡️</span>
+                  <span>Assurance incluse</span>
+                </div>
+              </div>
+              
+              <!-- Price & Action -->
+              <div class="service-footer">
+                <div class="service-price">
+                  <span class="price-label">À partir de</span>
+                  <span class="price-value">{{ service.price }}€</span>
+                  <span class="price-unit">/heure</span>
+                </div>
+                <button class="service-cta">
+                  <span>Réserver</span>
+                  <div class="cta-background"></div>
+                </button>
               </div>
             </div>
+            
+                         <!-- Hover Effects -->
+             <div class="card-overlay">
+               <div class="overlay-content">
+                 <h4>{{ service.title }}</h4>
+                 <p>Disponible 7j/7</p>
+                 <button class="view-details" @click.stop="openServiceDetail(service)">Voir détails</button>
+               </div>
+             </div>
           </div>
         </div>
       </div>
@@ -186,74 +255,61 @@ export default {
       // Categories de services disponibles
       serviceCategories: [
         { id: 'all', name: 'Tous', icon: '🔍' },
-        { id: 'menage', name: 'Ménage', icon: '🏠' },
         { id: 'jardinage', name: 'Jardinage', icon: '🌱' },
-        { id: 'reparation', name: 'Réparation', icon: '🔧' },
-        { id: 'livraison', name: 'Livraison', icon: '📦' },
-        { id: 'garde', name: 'Garde d\'enfants', icon: '👶' }
+        { id: 'plomberie', name: 'Plomberie', icon: '🚿' },
+        { id: 'electricite', name: 'Électricité', icon: '⚡' },
+        { id: 'climatisation', name: 'Climatisation', icon: '❄️' }
       ],
       
       // Liste des services disponibles
       services: [
         {
           id: 1,
-          title: 'Ménage complet',
-          description: 'Service de ménage professionnel pour votre domicile',
-          category: 'menage',
-          icon: '🧹',
-          rating: 4.8,
-          reviews: 127,
-          price: 25
-        },
-        {
-          id: 2,
           title: 'Jardinage et tonte',
-          description: 'Entretien de jardin et tonte de pelouse',
+          description: 'Entretien complet de jardin, tonte de pelouse, taille des haies et plantation',
           category: 'jardinage',
           icon: '🌿',
           rating: 4.9,
-          reviews: 89,
-          price: 30
+          reviews: 156,
+          price: 30,
+          features: ['Tonte de pelouse', 'Taille des haies', 'Plantation', 'Désherbage'],
+          image: '/images/photo1.jpg'
+        },
+        {
+          id: 2,
+          title: 'Plomberie',
+          description: 'Réparation et installation plomberie, dépannage d\'urgence 24h/24',
+          category: 'plomberie',
+          icon: '🚿',
+          rating: 4.8,
+          reviews: 198,
+          price: 50,
+          features: ['Réparation fuites', 'Installation sanitaires', 'Débouchage', 'Urgence 24h'],
+          image: '/images/photo2.jpg'
         },
         {
           id: 3,
-          title: 'Réparation électrique',
-          description: 'Dépannage et réparation électrique',
-          category: 'reparation',
+          title: 'Électricité',
+          description: 'Installation électrique, dépannage et mise aux normes par électriciens certifiés',
+          category: 'electricite',
           icon: '⚡',
           rating: 4.7,
-          reviews: 156,
-          price: 45
+          reviews: 234,
+          price: 45,
+          features: ['Installation électrique', 'Dépannage urgent', 'Mise aux normes', 'Éclairage LED'],
+          image: '/images/photo3.jpg'
         },
         {
           id: 4,
-          title: 'Livraison courses',
-          description: 'Livraison de vos courses à domicile',
-          category: 'livraison',
-          icon: '🛒',
-          rating: 4.6,
-          reviews: 203,
-          price: 15
-        },
-        {
-          id: 5,
-          title: 'Garde d\'enfants',
-          description: 'Service de garde qualifié et sécurisé',
-          category: 'garde',
-          icon: '🎈',
+          title: 'Climatisation',
+          description: 'Installation, entretien et réparation de systèmes de climatisation et chauffage',
+          category: 'climatisation',
+          icon: '❄️',
           rating: 4.9,
-          reviews: 94,
-          price: 20
-        },
-        {
-          id: 6,
-          title: 'Plomberie',
-          description: 'Réparation et installation plomberie',
-          category: 'reparation',
-          icon: '🚿',
-          rating: 4.5,
-          reviews: 78,
-          price: 50
+          reviews: 142,
+          price: 60,
+          features: ['Installation clim', 'Entretien annuel', 'Réparation', 'Dépannage urgence'],
+          image: '/images/photo4.jpg'
         }
       ],
       
@@ -288,18 +344,38 @@ export default {
         return this.services
       }
       return this.services.filter(service => service.category === this.selectedCategory)
+    },
+    
+    // Image actuelle pour le background
+    currentImage() {
+      const images = ['/photo1.jpg', '/photo4.jpg', '/photo3.jpg']
+      return images[this.currentImageIndex]
     }
   },
   
   mounted() {
-    // Animation automatique des témoignages
-    this.startTestimonialRotation()
+    // Animation automatique des témoignages (plus lente)
+    this.testimonialTimer = setInterval(() => {
+      this.currentTestimonial = (this.currentTestimonial + 1) % this.testimonials.length
+    }, 6000) // Changé de 5s à 6s
     
-    // Animation automatique des images de fond
-    this.startImageRotation()
+    // Animation automatique des images de fond (plus lente)
+    this.imageTimer = setInterval(() => {
+      this.currentImageIndex = (this.currentImageIndex + 1) % 3
+    }, 8000) // Changé de 4s à 8s
     
     // Animation des particules au scroll
     this.initScrollAnimations()
+  },
+  
+  beforeUnmount() {
+    // Nettoyage des timers pour éviter les fuites mémoire
+    if (this.testimonialTimer) {
+      clearInterval(this.testimonialTimer)
+    }
+    if (this.imageTimer) {
+      clearInterval(this.imageTimer)
+    }
   },
   
   methods: {
@@ -312,22 +388,7 @@ export default {
     
     // Ouverture du détail d'un service
     openServiceDetail(service) {
-      // Ici on pourrait ouvrir une modal ou naviguer vers une page de détail
-      alert(`Détail du service: ${service.title}`)
-    },
-    
-    // Rotation automatique des témoignages
-    startTestimonialRotation() {
-      setInterval(() => {
-        this.currentTestimonial = (this.currentTestimonial + 1) % this.testimonials.length
-      }, 5000) // Change toutes les 5 secondes
-    },
-    
-    // Rotation automatique des images de fond
-    startImageRotation() {
-      setInterval(() => {
-        this.currentImageIndex = (this.currentImageIndex + 1) % 3 // 3 images au total
-      }, 4000) // Change toutes les 4 secondes
+      this.$emit('viewChange', 'serviceDetail', service)
     },
     
     // Initialisation des animations au scroll
@@ -338,6 +399,9 @@ export default {
             entry.target.classList.add('animate-in')
           }
         })
+      }, {
+        threshold: 0.1,
+        rootMargin: '50px'
       })
       
       // Observer les sections pour les animations
@@ -378,35 +442,39 @@ export default {
   box-sizing: border-box;
 }
 
-/* Section Hero avec animations 3D */
+/* Section Hero optimisée */
 .hero-section {
   min-height: 100vh;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  transition: background-image 1s ease-in-out;
 }
 
-/* Images de fond - Image 1: Intérieur moderne */
-.hero-section.bg-image-1 {
-  background: 
-    linear-gradient(135deg, rgba(30, 60, 114, 0.85) 0%, rgba(42, 82, 152, 0.8) 50%, rgba(15, 20, 25, 0.9) 100%),
-    url('/images/photo1.jpg') center/cover no-repeat;
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
-/* Images de fond - Image 2: Jardinage */
-.hero-section.bg-image-2 {
-  background: 
-    linear-gradient(135deg, rgba(30, 60, 114, 0.85) 0%, rgba(42, 82, 152, 0.8) 50%, rgba(15, 20, 25, 0.9) 100%),
-    url('/images/photo4.jpg') center/cover no-repeat;
+.hero-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.8s ease-in-out;
 }
 
-/* Images de fond - Image 3: Services techniques */
-.hero-section.bg-image-3 {
-  background: 
-    linear-gradient(135deg, rgba(30, 60, 114, 0.85) 0%, rgba(42, 82, 152, 0.8) 50%, rgba(15, 20, 25, 0.9) 100%),
-    url('/images/photo3.jpg') center/cover no-repeat;
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(30, 60, 114, 0.85) 0%, rgba(42, 82, 152, 0.8) 50%, rgba(15, 20, 25, 0.9) 100%);
 }
 
 .hero-content {
@@ -422,7 +490,7 @@ export default {
   z-index: 2;
 }
 
-/* Animation de particules en arrière-plan */
+/* Animation de particules optimisée */
 .particles-bg {
   position: absolute;
   top: 0;
@@ -435,32 +503,35 @@ export default {
 
 .particle {
   position: absolute;
-  width: 4px;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.3);
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.4);
   border-radius: 50%;
-  animation: float 6s ease-in-out infinite;
+  animation: float 8s ease-in-out infinite;
 }
 
 .particle:nth-child(odd) {
-  animation-delay: -3s;
-  animation-duration: 8s;
+  animation-delay: -4s;
+}
+
+.particle:nth-child(even) {
+  animation-delay: -2s;
 }
 
 @keyframes float {
   0%, 100% { 
-    transform: translateY(0px) rotate(0deg);
-    opacity: 0.3;
+    transform: translateY(0px);
+    opacity: 0.2;
   }
   50% { 
-    transform: translateY(-20px) rotate(180deg);
-    opacity: 1;
+    transform: translateY(-15px);
+    opacity: 0.6;
   }
 }
 
 /* Contenu textuel du hero */
 .hero-text {
-  animation: slideInLeft 1s ease-out;
+  animation: slideInLeft 0.8s ease-out;
 }
 
 .hero-title {
@@ -483,7 +554,6 @@ export default {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 0 30px rgba(79, 172, 254, 0.5);
 }
 
 .hero-subtitle {
@@ -493,7 +563,7 @@ export default {
   line-height: 1.6;
 }
 
-/* Boutons call-to-action avec animations */
+/* Boutons optimisés */
 .hero-buttons {
   display: flex;
   gap: 1rem;
@@ -508,34 +578,21 @@ export default {
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   overflow: hidden;
-  z-index: 1;
 }
 
-.cta-button span {
-  position: relative;
-  z-index: 2;
-}
-
-.button-bg {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, var(--accent-blue), var(--secondary-blue));
-  transition: left 0.3s ease;
-  z-index: 1;
-}
-
-.cta-button:hover .button-bg {
-  left: 0;
+.cta-button:hover {
+  transform: translateY(-2px);
 }
 
 .cta-button.primary {
   background: linear-gradient(45deg, var(--primary-blue), var(--secondary-blue));
   color: white;
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.cta-button.primary:hover {
   box-shadow: 0 8px 25px var(--shadow-color);
 }
 
@@ -545,9 +602,8 @@ export default {
   border: 2px solid var(--accent-blue);
 }
 
-.cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px var(--shadow-color);
+.cta-button.secondary:hover {
+  background: var(--accent-blue);
 }
 
 /* Animations 3D des cartes flottantes */
@@ -657,121 +713,271 @@ export default {
   margin-bottom: 3rem;
 }
 
-/* Filtres de services */
-.service-filters {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-}
-
-.filter-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid transparent;
-  color: white;
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.filter-btn:hover,
-.filter-btn.active {
-  background: var(--primary-blue);
-  border-color: var(--accent-blue);
-  transform: translateY(-2px);
-}
-
-/* Grille des services */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.service-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.service-card:hover {
-  transform: translateY(-10px) rotateX(5deg);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.service-image {
+/* Section Services Ultra-Professionnelle */
+.services-section {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #0a0e13 0%, #1a1d29 50%, #0f1419 100%);
   position: relative;
-  height: 150px;
-  background: linear-gradient(45deg, var(--primary-blue), var(--secondary-blue));
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
-.service-icon {
-  font-size: 3rem;
-  z-index: 2;
-}
-
-.service-overlay {
+.services-section::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(30, 60, 114, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(79, 172, 254, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Header Section Premium */
+.services-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.header-content {
+  flex: 1;
+  max-width: 600px;
+}
+
+.header-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ffc107, #ff9800);
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+}
+
+.header-stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem 1rem;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent-blue);
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Filtres Ultra-Modernes */
+.service-filters {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: 600;
+  font-size: 1rem;
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.filter-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.6s ease;
+}
+
+.filter-btn:hover::before {
+  left: 100%;
+}
+
+.filter-btn:hover {
+  background: rgba(30, 60, 114, 0.3);
+  border-color: var(--accent-blue);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(79, 172, 254, 0.2);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+  border-color: var(--accent-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+}
+
+.filter-icon {
+  font-size: 1.2rem;
+}
+
+.filter-ripple {
+  position: absolute;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transition: all 0.4s ease;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.filter-btn:active .filter-ripple {
+  width: 100px;
+  height: 100px;
+}
+
+/* Grille Services Premium */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 2.5rem;
+  margin-top: 2rem;
+  position: relative;
+}
+
+.service-card {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(79, 172, 254, 0.2);
+}
+
+.card-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(79, 172, 254, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(30, 60, 114, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Service Header */
+.service-header {
+  height: 120px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  border-radius: 20px 20px 0 0;
 }
 
-.service-card:hover .service-overlay {
-  opacity: 1;
+.service-icon-container {
+  position: relative;
+  z-index: 2;
 }
 
-.view-details {
-  background: var(--accent-blue);
-  border: none;
-  color: white;
-  padding: 0.8rem 1.5rem;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: 600;
+.service-icon {
+  font-size: 2.5rem;
+  display: block;
+  text-align: center;
 }
 
+.service-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(135deg, #ffd700, #ffb300);
+  color: #000;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+/* Service Content */
 .service-content {
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .service-title {
+  color: var(--text-light);
   font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-  color: white;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
 }
 
 .service-description {
   color: var(--text-gray);
-  margin-bottom: 1rem;
-  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  flex-grow: 1;
 }
 
+/* Rating simplifié */
 .service-rating {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .stars {
@@ -780,18 +986,234 @@ export default {
 }
 
 .star {
+  font-size: 1rem;
   opacity: 0.3;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 .star.filled {
   opacity: 1;
 }
 
-.service-price {
+.rating-score {
+  font-weight: 700;
   color: var(--accent-blue);
   font-size: 1.1rem;
+}
+
+.rating-text {
+  color: var(--text-gray);
+  font-size: 0.9rem;
+}
+
+/* Features */
+.service-features {
+  margin-bottom: 1.5rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-gray);
+}
+
+.feature-icon {
+  width: 18px;
+  height: 18px;
+  background: var(--accent-blue);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+/* Service Footer */
+.service-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.service-price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.price-label {
+  font-size: 0.8rem;
+  color: var(--text-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.price-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent-blue);
+  line-height: 1;
+}
+
+.price-unit {
+  font-size: 0.8rem;
+  color: var(--text-gray);
+}
+
+.service-cta {
+  background: linear-gradient(135deg, var(--accent-blue), #00bcd4);
+  border: none;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 15px;
+  cursor: pointer;
   font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 100px;
+}
+
+.service-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+}
+
+/* Card Overlay simplifié */
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 60, 114, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.service-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.overlay-content {
+  text-align: center;
+  color: white;
+}
+
+.overlay-content h4 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.overlay-content p {
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.view-details {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .services-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+  
+  .header-stats {
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .stat-item {
+    padding: 1rem 0.8rem;
+  }
+  
+  .service-filters {
+    gap: 1rem;
+  }
+  
+  .filter-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    min-width: 120px;
+  }
+  
+  .services-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .service-card {
+    height: 380px;
+  }
+  
+  .service-content {
+    padding: 1.5rem;
+    height: 260px;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-section {
+    padding: 4rem 0;
+  }
+  
+  .service-filters {
+    gap: 0.5rem;
+  }
+  
+  .filter-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    min-width: 100px;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .service-footer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .service-cta {
+    width: 100%;
+  }
 }
 
 /* Section Témoignages */

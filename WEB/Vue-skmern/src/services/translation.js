@@ -8,6 +8,7 @@ const translations = {
     register: 'Inscription',
     logout: 'Déconnexion',
     profile: 'Profil',
+    contact: 'Contact',
     
     // Page d'accueil
     welcome: 'Bienvenue sur SKMERN',
@@ -49,7 +50,56 @@ const translations = {
     slider2Title: 'Service de Qualité',
     slider2Desc: 'Des interventions rapides et efficaces',
     slider3Title: 'Confiance et Sécurité',
-    slider3Desc: 'Tous nos techniciens sont vérifiés et assurés'
+    slider3Desc: 'Tous nos techniciens sont vérifiés et assurés',
+    
+    // Page Contact
+    contactTitle: 'Contactez-nous',
+    contactSubtitle: 'Nous sommes là pour vous accompagner dans tous vos projets',
+    sendMessage: 'Envoyer un message',
+    contactDescription: 'Remplissez le formulaire ci-dessous et notre équipe vous répondra dans les plus brefs délais.',
+    firstNamePlaceholder: 'Votre prénom',
+    lastNamePlaceholder: 'Votre nom',
+    emailPlaceholder: 'votre@email.com',
+    phonePlaceholder: '+33 1 23 45 67 89',
+    subject: 'Sujet',
+    selectSubject: 'Sélectionnez un sujet',
+    cleaning: 'Service de ménage',
+    gardening: 'Jardinage',
+    repair: 'Réparation',
+    other: 'Autre',
+    message: 'Message',
+    messagePlaceholder: 'Décrivez votre demande en détail...',
+    sending: 'Envoi en cours...',
+    messageSent: 'Message envoyé avec succès !',
+    messageError: 'Erreur lors de l\'envoi du message',
+    contactInfo: 'Nos coordonnées',
+    address: 'Adresse',
+    hours: 'Horaires',
+    workingHours: 'Lun-Ven : 9h-18h\nSam : 9h-12h',
+    followUs: 'Suivez-nous',
+    
+    // Footer Ultra-Professionnel
+    companyTagline: 'Innovation & Excellence',
+    companyDescription: 'Plateforme leader connectant clients et professionnels qualifiés pour tous vos besoins quotidiens. Service de qualité, sécurité et confiance garantis.',
+    happyClients: 'Clients Satisfaits',
+    yearsExperience: 'Années d\'Expérience',
+    support: 'Support',
+    ourServices: 'Nos Services',
+    maintenance: 'Maintenance',
+    consulting: 'Conseil',
+    quickLinks: 'Liens Rapides',
+    about: 'À Propos',
+    privacy: 'Confidentialité',
+    terms: 'Conditions d\'Utilisation',
+    faq: 'FAQ',
+    stayConnected: 'Restez Connecté',
+    newsletter: 'Newsletter',
+    allRightsReserved: 'Tous droits réservés.',
+    madeWith: 'Créé avec',
+    inParis: 'à Paris',
+    certified: 'Certifié',
+    secure: 'Sécurisé',
+    verified: 'Vérifié'
   },
   
   en: {
@@ -59,6 +109,7 @@ const translations = {
     register: 'Register',
     logout: 'Logout',
     profile: 'Profile',
+    contact: 'Contact',
     
     // Page d'accueil
     welcome: 'Welcome to SKMERN',
@@ -100,7 +151,56 @@ const translations = {
     slider2Title: 'Quality Service',
     slider2Desc: 'Fast and efficient interventions',
     slider3Title: 'Trust and Security',
-    slider3Desc: 'All our technicians are verified and insured'
+    slider3Desc: 'All our technicians are verified and insured',
+    
+    // Contact Page
+    contactTitle: 'Contact Us',
+    contactSubtitle: 'We\'re here to support you in all your projects',
+    sendMessage: 'Send Message',
+    contactDescription: 'Fill out the form below and our team will get back to you as soon as possible.',
+    firstNamePlaceholder: 'Your first name',
+    lastNamePlaceholder: 'Your last name',
+    emailPlaceholder: 'your@email.com',
+    phonePlaceholder: '+1 234 567 8900',
+    subject: 'Subject',
+    selectSubject: 'Select a subject',
+    cleaning: 'Cleaning Service',
+    gardening: 'Gardening',
+    repair: 'Repair',
+    other: 'Other',
+    message: 'Message',
+    messagePlaceholder: 'Describe your request in detail...',
+    sending: 'Sending...',
+    messageSent: 'Message sent successfully!',
+    messageError: 'Error sending message',
+    contactInfo: 'Contact Information',
+    address: 'Address',
+    hours: 'Hours',
+    workingHours: 'Mon-Fri: 9am-6pm\nSat: 9am-12pm',
+    followUs: 'Follow Us',
+    
+    // Footer Ultra-Professionnel
+    companyTagline: 'Innovation & Excellence',
+    companyDescription: 'Leading platform connecting clients with qualified professionals for all your daily needs. Quality service, security and trust guaranteed.',
+    happyClients: 'Happy Clients',
+    yearsExperience: 'Years Experience',
+    support: 'Support',
+    ourServices: 'Our Services',
+    maintenance: 'Maintenance',
+    consulting: 'Consulting',
+    quickLinks: 'Quick Links',
+    about: 'About Us',
+    privacy: 'Privacy Policy',
+    terms: 'Terms of Service',
+    faq: 'FAQ',
+    stayConnected: 'Stay Connected',
+    newsletter: 'Newsletter',
+    allRightsReserved: 'All rights reserved.',
+    madeWith: 'Made with',
+    inParis: 'in Paris',
+    certified: 'Certified',
+    secure: 'Secure',
+    verified: 'Verified'
   },
   
   ar: {
@@ -110,6 +210,7 @@ const translations = {
     register: 'إنشاء حساب',
     logout: 'تسجيل الخروج',
     profile: 'الملف الشخصي',
+    contact: 'اتصل بنا',
     
     // Page d'accueil
     welcome: 'مرحباً بكم في SKMERN',
@@ -143,7 +244,56 @@ const translations = {
     contactAction: 'تواصل',
     
     // Footer
-    copyright: '© 2024 SKMERN. نظام ربط شامل.'
+    copyright: '© 2024 SKMERN. نظام ربط شامل.',
+    
+    // صفحة الاتصال
+    contactTitle: 'اتصل بنا',
+    contactSubtitle: 'نحن هنا لدعمكم في جميع مشاريعكم',
+    sendMessage: 'إرسال رسالة',
+    contactDescription: 'املأ النموذج أدناه وسيتواصل معك فريقنا في أقرب وقت ممكن.',
+    firstNamePlaceholder: 'الاسم الأول',
+    lastNamePlaceholder: 'اسم العائلة',
+    emailPlaceholder: 'your@email.com',
+    phonePlaceholder: '+966 50 123 4567',
+    subject: 'الموضوع',
+    selectSubject: 'اختر موضوعاً',
+    cleaning: 'خدمة التنظيف',
+    gardening: 'البستنة',
+    repair: 'الإصلاح',
+    other: 'أخرى',
+    message: 'الرسالة',
+    messagePlaceholder: 'صف طلبك بالتفصيل...',
+    sending: 'جاري الإرسال...',
+    messageSent: 'تم إرسال الرسالة بنجاح!',
+    messageError: 'خطأ في إرسال الرسالة',
+    contactInfo: 'معلومات الاتصال',
+    address: 'العنوان',
+    hours: 'أوقات العمل',
+    workingHours: 'الإثنين-الجمعة: 9ص-6م\nالسبت: 9ص-12ظ',
+    followUs: 'تابعونا',
+    
+    // Footer Ultra-Professionnel
+    companyTagline: 'الابتكار والتميز',
+    companyDescription: 'منصة رائدة تربط العملاء بالمهنيين المؤهلين لجميع احتياجاتكم اليومية. خدمة عالية الجودة، أمان وثقة مضمونة.',
+    happyClients: 'عملاء سعداء',
+    yearsExperience: 'سنوات خبرة',
+    support: 'الدعم',
+    ourServices: 'خدماتنا',
+    maintenance: 'الصيانة',
+    consulting: 'الاستشارات',
+    quickLinks: 'روابط سريعة',
+    about: 'من نحن',
+    privacy: 'سياسة الخصوصية',
+    terms: 'شروط الاستخدام',
+    faq: 'الأسئلة الشائعة',
+    stayConnected: 'ابقوا على تواصل',
+    newsletter: 'النشرة الإخبارية',
+    allRightsReserved: 'جميع الحقوق محفوظة.',
+    madeWith: 'صُنع بـ',
+    inParis: 'في باريس',
+    certified: 'معتمد',
+    secure: 'آمن',
+    verified: 'مُوثق'
   }
 }
 
