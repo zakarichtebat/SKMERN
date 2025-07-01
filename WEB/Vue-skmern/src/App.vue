@@ -14,10 +14,10 @@
       <!-- Main Content -->
       <main class="app-main">
         <!-- Page d'accueil -->
-        <HomePage v-if="currentView === 'home'" />
+        <HomePage v-if="currentView === 'home'" @viewChange="handleViewChange" />
         
         <!-- Pages d'authentification -->
-        <div v-else-if="!isAuthenticated" class="auth-container">
+        <div v-else-if="currentView === 'login' || currentView === 'register'" class="auth-container">
           <div class="auth-tabs">
             <button 
               @click="currentView = 'login'" 
@@ -50,7 +50,7 @@
         </div>
 
         <!-- Dashboard utilisateur -->
-        <div v-else class="dashboard-container">
+        <div v-else-if="isAuthenticated" class="dashboard-container">
           <UserProfile 
             :user="currentUser"
             @logout="handleLogout"

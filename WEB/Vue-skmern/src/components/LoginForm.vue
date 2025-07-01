@@ -39,6 +39,8 @@
       </button>
     </form>
 
+
+
     <p class="auth-link">
       {{ getNoAccountText() }}
       <a href="#" @click="$emit('switchToRegister')">{{ t('register') }}</a>
@@ -172,21 +174,27 @@ export default {
   max-width: 400px;
   margin: 0 auto;
   padding: 2rem;
-  background: white;
+  background: transparent;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  color: var(--text-light);
 }
 
 h2 {
   text-align: center;
-  color: #333;
+  color: var(--text-light);
   margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  background: linear-gradient(45deg, var(--accent-blue), #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .form-group {
@@ -195,73 +203,134 @@ h2 {
 }
 
 label {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
   font-weight: 500;
-  color: #555;
+  color: var(--text-light);
+  font-size: 1rem;
 }
 
 .form-input {
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 1rem;
+  border: 2px solid var(--border-light);
+  border-radius: 12px;
   font-size: 1rem;
-  transition: border-color 0.3s;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.form-input::placeholder {
+  color: var(--text-gray);
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: var(--accent-blue);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
 }
 
 .btn-submit {
-  background-color: #007bff;
+  padding: 1rem 2rem;
+  background: linear-gradient(45deg, var(--primary-blue), var(--secondary-blue));
   color: white;
-  padding: 0.75rem;
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
   margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px var(--shadow-blue);
 }
 
 .btn-submit:hover:not(:disabled) {
-  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--shadow-blue);
+  background: linear-gradient(45deg, var(--secondary-blue), var(--accent-blue));
 }
 
 .btn-submit:disabled {
-  background-color: #ccc;
+  background: var(--text-gray);
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .error-message {
-  color: #dc3545;
-  background-color: #f8d7da;
-  padding: 0.75rem;
-  border-radius: 4px;
-  border: 1px solid #f5c6cb;
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  font-weight: 500;
 }
 
 .success-message {
-  color: #155724;
-  background-color: #d4edda;
-  padding: 0.75rem;
-  border-radius: 4px;
-  border: 1px solid #c3e6cb;
+  padding: 1rem;
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  font-weight: 500;
 }
 
 .auth-link {
   text-align: center;
-  margin-top: 1rem;
-  color: #666;
+  margin-top: 1.5rem;
+  color: var(--text-gray);
+  font-size: 0.95rem;
 }
 
 .auth-link a {
-  color: #007bff;
+  color: var(--accent-blue);
   text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .auth-link a:hover {
-  text-decoration: underline;
+  color: var(--text-light);
+  text-shadow: 0 0 8px var(--accent-blue);
+}
+
+/* Comptes de test */
+.test-accounts {
+  background: rgba(79, 172, 254, 0.1);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  backdrop-filter: blur(10px);
+}
+
+.test-accounts h4 {
+  color: var(--accent-blue);
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.test-accounts .account {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.test-accounts .account:last-child {
+  margin-bottom: 0;
+}
+
+.test-accounts .account strong {
+  color: var(--accent-blue);
 }
 </style> 

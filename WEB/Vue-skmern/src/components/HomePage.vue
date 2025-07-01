@@ -6,7 +6,7 @@
 <template>
   <div class="home-page">
     <!-- Section Hero avec animation 3D -->
-    <section class="hero-section">
+    <section class="hero-section" :class="`bg-image-${currentImageIndex + 1}`">
       <div class="hero-content">
         <!-- Animation de particules en arrière-plan -->
         <div class="particles-bg">
@@ -48,6 +48,16 @@
             <div class="card-icon">🔧</div>
             <span>Réparation</span>
           </div>
+        </div>
+        
+        <!-- Indicateurs d'images -->
+        <div class="hero-indicators">
+          <button 
+            v-for="(_, index) in 3" 
+            :key="index"
+            @click="currentImageIndex = index"
+            :class="['indicator-dot', { active: currentImageIndex === index }]"
+          ></button>
         </div>
       </div>
     </section>
@@ -170,6 +180,9 @@ export default {
       // Index du témoignage actuellement affiché
       currentTestimonial: 0,
       
+      // Index de l'image de fond actuelle (0, 1, 2 pour 3 images)
+      currentImageIndex: 0,
+      
       // Categories de services disponibles
       serviceCategories: [
         { id: 'all', name: 'Tous', icon: '🔍' },
@@ -282,6 +295,9 @@ export default {
     // Animation automatique des témoignages
     this.startTestimonialRotation()
     
+    // Animation automatique des images de fond
+    this.startImageRotation()
+    
     // Animation des particules au scroll
     this.initScrollAnimations()
   },
@@ -305,6 +321,13 @@ export default {
       setInterval(() => {
         this.currentTestimonial = (this.currentTestimonial + 1) % this.testimonials.length
       }, 5000) // Change toutes les 5 secondes
+    },
+    
+    // Rotation automatique des images de fond
+    startImageRotation() {
+      setInterval(() => {
+        this.currentImageIndex = (this.currentImageIndex + 1) % 3 // 3 images au total
+      }, 4000) // Change toutes les 4 secondes
     },
     
     // Initialisation des animations au scroll
@@ -361,8 +384,29 @@ export default {
   display: flex;
   align-items: center;
   position: relative;
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 50%, var(--dark-bg) 100%);
   overflow: hidden;
+  transition: background-image 1s ease-in-out;
+}
+
+/* Images de fond - Image 1: Intérieur moderne */
+.hero-section.bg-image-1 {
+  background: 
+    linear-gradient(135deg, rgba(30, 60, 114, 0.85) 0%, rgba(42, 82, 152, 0.8) 50%, rgba(15, 20, 25, 0.9) 100%),
+    url('/images/photo1.jpg') center/cover no-repeat;
+}
+
+/* Images de fond - Image 2: Jardinage */
+.hero-section.bg-image-2 {
+  background: 
+    linear-gradient(135deg, rgba(30, 60, 114, 0.85) 0%, rgba(42, 82, 152, 0.8) 50%, rgba(15, 20, 25, 0.9) 100%),
+    url('/images/photo4.jpg') center/cover no-repeat;
+}
+
+/* Images de fond - Image 3: Services techniques */
+.hero-section.bg-image-3 {
+  background: 
+    linear-gradient(135deg, rgba(30, 60, 114, 0.85) 0%, rgba(42, 82, 152, 0.8) 50%, rgba(15, 20, 25, 0.9) 100%),
+    url('/images/photo3.jpg') center/cover no-repeat;
 }
 
 .hero-content {
@@ -556,6 +600,38 @@ export default {
   50% { 
     transform: translateY(-20px) rotateX(10deg);
   }
+}
+
+/* Indicateurs d'images du hero */
+.hero-indicators {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  z-index: 3;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator-dot.active {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  transform: scale(1.2);
+}
+
+.indicator-dot:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.1);
 }
 
 /* Section Services */

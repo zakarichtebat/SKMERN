@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const API_URL = 'http://localhost:3000'
+const DEV_MODE = false // Mode production avec vraie API
 
 // Configuration d'axios avec l'URL de base
 const api = axios.create({
@@ -24,25 +25,151 @@ api.interceptors.request.use(
   }
 )
 
+// Simulation d'API pour le mode développement (utilisateurs avec mots de passe corrects)
+const mockUsers = [
+  {
+    id: 1,
+    email: 'test@example.com',
+    password: 'password123',
+    nom: 'Dupont',
+    prenom: 'Jean',
+    telephone: '+33123456789',
+    adresse: '123 Rue de la Paix, 75001 Paris'
+  },
+  {
+    id: 2,
+    email: 'zakariachtebal@gmail.com',
+    password: 'motdepasse',
+    nom: 'Admin',
+    prenom: 'Zakaria',
+    telephone: '+33987654321',
+    adresse: '456 Avenue des Champs, 75008 Paris'
+  },
+  {
+    id: 4,
+    email: 'test@skmern.com',
+    password: 'test123',
+    nom: 'Test',
+    prenom: 'User',
+    telephone: '+33100000000',
+    adresse: 'Adresse de test'
+  }
+]
+
 // Service d'authentification
 export const authService = {
   // Inscription
-  register(userData) {
+  async register(userData) {
+    if (DEV_MODE) {
+      // Simulation d'inscription
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // Vérifier si l'email existe déjà
+          const existingUser = mockUsers.find(user => user.email === userData.email)
+          if (existingUser) {
+            reject({
+              response: {
+                data: { message: 'Un compte avec cet email existe déjà' }
+              }
+            })
+          } else {
+            const newUser = {
+              id: mockUsers.length + 1,
+              ...userData
+            }
+            mockUsers.push(newUser)
+            const token = 'mock-jwt-token-' + Date.now()
+            resolve({
+              data: {
+                user: { ...newUser, password: undefined },
+                token: token
+              }
+            })
+          }
+        }, 1000)
+      })
+    }
     return api.post('/auth/register', userData)
   },
 
   // Connexion
-  login(credentials) {
-    return api.post('/auth/login', credentials)
+  async login(credentials) {
+    if (DEV_MODE) {
+      console.log('🔄 Mode développement activé - Simulation de connexion')
+      console.log('📧 Email:', credentials.email)
+      console.log('🔍 Utilisateurs disponibles:', mockUsers.map(u => ({ email: u.email, password: u.password })))
+      
+      // Simulation de connexion
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          const user = mockUsers.find(
+            u => u.email === credentials.email && u.password === credentials.password
+          )
+          if (user) {
+            console.log('✅ Connexion réussie pour:', user.email)
+            const token = 'mock-jwt-token-' + Date.now()
+            resolve({
+              data: {
+                user: { ...user, password: undefined },
+                token: token
+              }
+            })
+          } else {
+            console.log('❌ Échec de connexion pour:', credentials.email)
+            reject({
+              response: {
+                data: { message: 'Email ou mot de passe incorrect' }
+              }
+            })
+          }
+        }, 1000)
+      })
+    }
+    
+    // Mode production - appel API réel
+    console.log('🚀 Tentative de connexion à l\'API réelle:', API_URL)
+    console.log('📧 Email:', credentials.email)
+    
+    try {
+      const response = await api.post('/auth/login', credentials)
+      console.log('✅ Connexion API réussie:', response.data)
+      return response
+    } catch (error) {
+      console.error('❌ Erreur API réelle:', error)
+      console.error('📋 Détails de l\'erreur:', {
+        message: error.message,
+        code: error.code,
+        response: error.response?.data
+      })
+      throw error
+    }
   },
 
   // Récupérer le profil
-  getProfile() {
+  async getProfile() {
+    if (DEV_MODE) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const user = this.getCurrentUser()
+          resolve({ data: user })
+        }, 500)
+      })
+    }
     return api.get('/auth/profile')
   },
 
   // Mettre à jour le profil
-  updateProfile(profileData) {
+  async updateProfile(profileData) {
+    if (DEV_MODE) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const currentUser = this.getCurrentUser()
+          const updatedUser = { ...currentUser, ...profileData }
+          localStorage.setItem('user', JSON.stringify(updatedUser))
+          resolve({ data: updatedUser })
+        }, 1000)
+      })
+    }
     return api.put('/auth/profile', profileData)
   },
 

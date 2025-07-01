@@ -149,8 +149,8 @@ const translations = {
 
 // État réactif pour la langue actuelle
 const state = reactive({
-  currentLanguage: 'ar',
-  isRTL: true
+  currentLanguage: 'fr',
+  isRTL: false
 })
 
 export const translationService = {
@@ -184,7 +184,7 @@ export const translationService = {
 
   // Initialiser la langue depuis localStorage
   init() {
-    const savedLang = localStorage.getItem('selectedLanguage') || 'ar'
+    const savedLang = localStorage.getItem('selectedLanguage') || 'fr'
     this.setLanguage(savedLang)
   },
 
