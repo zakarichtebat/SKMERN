@@ -92,8 +92,8 @@ SKMERN/
 ### 1. Cloner le repository
 
 ```bash
-git clone https://github.com/zakarichtebat/SKMERN-Auth-System.git
-cd SKMERN-Auth-System
+git clone git@github.com:zakarichtebat/SKMERN.git
+cd SKMERN
 ```
 
 ### 2. Configuration Backend
