@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  backend:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      working-directory: ./skmern-api
+      run: npm ci
+      
+    - name: Run linter
+      working-directory: ./skmern-api
+      run: npm run lint
+      
+    - name: Run tests
+      working-directory: ./skmern-api
+      run: npm test
+
+  frontend:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      working-directory: ./WEB/Vue-skmern
+      run: npm ci
+      
+    - name: Build
+      working-directory: ./WEB/Vue-skmern
+      run: npm run build
+
+
