@@ -2,7 +2,7 @@
   <header class="app-header">
     <div class="header-content">
       <div class="header-left">
-        <h1 class="app-title" @click="goToHome">SKMERN</h1>
+        <h1 class="app-title" @click="goToHome">FIXILYA</h1>
       </div>
       
       <!-- Mobile Menu Toggle -->

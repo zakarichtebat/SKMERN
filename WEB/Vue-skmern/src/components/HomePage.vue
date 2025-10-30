@@ -22,7 +22,7 @@
         <div class="hero-text">
           <h1 class="hero-title">
             <span class="text-animate">Bienvenue chez</span>
-            <span class="brand-name">SKMERN</span>
+            <span class="brand-name">FIXILYA</span>
           </h1>
           <p class="hero-subtitle">
             Votre plateforme de services à domicile moderne et fiable

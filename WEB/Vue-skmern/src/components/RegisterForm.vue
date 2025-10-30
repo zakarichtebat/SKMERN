@@ -346,8 +346,8 @@ label {
   border: 2px solid var(--border-light);
   border-radius: 12px;
   font-size: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-light);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--text-primary);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
 }

@@ -11,7 +11,7 @@
         <!-- À propos de l'entreprise -->
         <div class="footer-section company-section">
           <div class="company-logo">
-            <h3 class="logo-text">SKMERN</h3>
+            <h3 class="logo-text">FIXILYA</h3>
             <p class="company-tagline">{{ t('companyTagline') }}</p>
           </div>
           <p class="company-description">
@@ -117,7 +117,7 @@
       <!-- Section Copyright -->
       <div class="footer-bottom">
         <div class="footer-copyright">
-          <p>&copy; {{ currentYear }} SKMERN. {{ t('allRightsReserved') }}</p>
+          <p>&copy; {{ currentYear }} FIXILYA. {{ t('allRightsReserved') }}</p>
           <p class="made-with">{{ t('madeWith') }} ❤️ {{ t('inParis') }}</p>
         </div>
         <div class="footer-certifications">

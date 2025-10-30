@@ -8,7 +8,7 @@ async function bootstrap() {
   
   // Configuration du CORS
   app.enableCors({
-    origin: ['http://localhost:5173', 'http://localhost:5001'], // URLs du frontend Vue.js
+    origin: ['http://localhost:5173', 'http://localhost:5001', 'http://localhost:5002'], // URLs du frontend Vue.js
     credentials: true,
   });
 

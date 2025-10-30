@@ -11,7 +11,7 @@ const translations = {
     contact: 'Contact',
     
     // Page d'accueil
-    welcome: 'Bienvenue sur SKMERN',
+    welcome: 'Bienvenue sur FIXILYA',
     subtitle: 'Mise en relation entre clients et techniciens',
     findTechnician: 'Trouvez votre technicien',
     searchPlaceholder: 'Rechercher un technicien (ex: plombier, électricien...)',
@@ -42,7 +42,7 @@ const translations = {
     contactAction: 'Contacter',
     
     // Footer
-    copyright: '© 2024 SKMERN. Système de mise en relation complet.',
+    copyright: '© 2024 FIXILYA. Système de mise en relation complet.',
     
     // Slider
     slider1Title: 'Des Professionnels Qualifiés',
@@ -112,7 +112,7 @@ const translations = {
     contact: 'Contact',
     
     // Page d'accueil
-    welcome: 'Welcome to SKMERN',
+    welcome: 'Welcome to FIXILYA',
     subtitle: 'Connecting clients and technicians',
     findTechnician: 'Find your technician',
     searchPlaceholder: 'Search for a technician (ex: plumber, electrician...)',
@@ -143,7 +143,7 @@ const translations = {
     contactAction: 'Contact',
     
     // Footer
-    copyright: '© 2024 SKMERN. Complete connection system.',
+    copyright: '© 2024 FIXILYA. Complete connection system.',
     
     // Slider
     slider1Title: 'Qualified Professionals',
@@ -213,7 +213,7 @@ const translations = {
     contact: 'اتصل بنا',
     
     // Page d'accueil
-    welcome: 'مرحباً بكم في SKMERN',
+    welcome: 'مرحباً بكم في FIXILYA',
     subtitle: 'ربط العملاء بالفنيين',
     findTechnician: 'اعثر على الفني المناسب',
     searchPlaceholder: 'البحث عن فني (مثال: سباك، كهربائي...)',
@@ -244,7 +244,7 @@ const translations = {
     contactAction: 'تواصل',
     
     // Footer
-    copyright: '© 2024 SKMERN. نظام ربط شامل.',
+    copyright: '© 2024 FIXILYA. نظام ربط شامل.',
     
     // صفحة الاتصال
     contactTitle: 'اتصل بنا',
