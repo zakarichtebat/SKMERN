@@ -71,22 +71,38 @@
         <!-- Header Section Premium -->
         <div class="services-header">
           <div class="header-content">
-            <span class="header-badge">🏆 Excellence</span>
+            <div class="header-top">
+              <span class="header-badge">
+                <span class="badge-icon">🏆</span>
+                <span>Excellence & Qualité</span>
+              </span>
+            </div>
             <h2 class="section-title">{{ t('ourServices') }}</h2>
             <p class="section-subtitle">{{ t('servicesSubtitle') }}</p>
+            <div class="header-divider"></div>
           </div>
+          
+          <!-- Stats Premium avec Animation -->
           <div class="header-stats">
             <div class="stat-item">
+              <div class="stat-icon">📊</div>
               <span class="stat-number">1000+</span>
-              <span class="stat-label">Interventions</span>
+              <span class="stat-label">Interventions Réussies</span>
             </div>
             <div class="stat-item">
+              <div class="stat-icon">⭐</div>
               <span class="stat-number">98%</span>
-              <span class="stat-label">Satisfaction</span>
+              <span class="stat-label">Clients Satisfaits</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number">24h</span>
-              <span class="stat-label">Support</span>
+              <div class="stat-icon">🕐</div>
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">Support Disponible</span>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">🔒</div>
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Sécurisé & Assuré</span>
             </div>
           </div>
         </div>
@@ -113,71 +129,90 @@
             class="service-card"
             @click="openServiceDetail(service)"
           >
-            <!-- Background Pattern -->
-            <div class="card-pattern"></div>
+            <!-- Card Background & Effects -->
+            <div class="card-background"></div>
+            <div class="card-shine"></div>
             
-            <!-- Service Header -->
-            <div class="service-header" :style="{ backgroundImage: 'linear-gradient(rgba(30, 60, 114, 0.8), rgba(79, 172, 254, 0.8)), url(' + service.image + ')' }">
-              <div class="service-icon-container">
-                <div class="service-icon">{{ service.icon }}</div>
-                <div class="icon-glow"></div>
+            <!-- Service Image Header professionnel -->
+            <div class="service-image-wrapper">
+              <div class="service-image" :style="{ backgroundImage: 'url(' + service.image + ')' }">
+                <div class="image-overlay-gradient"></div>
               </div>
-              <div class="service-badge">Premium</div>
+              
+              <!-- Badges Premium -->
+              <div class="service-badges-group">
+                <span class="badge-premium">⭐ Premium</span>
+                <span class="badge-verified">✓ Vérifié</span>
+              </div>
+              
+              <!-- Icon professionnel -->
+              <div class="service-icon-container">
+                <div class="icon-background"></div>
+                <div class="service-icon">{{ service.icon }}</div>
+              </div>
             </div>
             
-            <!-- Service Content -->
+            <!-- Service Content Professionnel -->
             <div class="service-content">
-              <h3 class="service-title">{{ service.title }}</h3>
+              <!-- Titre & Catégorie -->
+              <div class="service-header-info">
+                <span class="service-category-tag">{{ service.category }}</span>
+                <h3 class="service-title">{{ service.title }}</h3>
+              </div>
+              
               <p class="service-description">{{ service.description }}</p>
               
-              <!-- Rating Premium -->
-              <div class="service-rating">
-                <div class="stars">
+              <!-- Rating Professionnel -->
+              <div class="service-rating-section">
+                <div class="rating-stars-container">
                   <span v-for="star in 5" :key="star" 
-                        :class="['star', { filled: star <= service.rating }]">⭐</span>
+                        :class="['rating-star', { active: star <= service.rating }]">★</span>
                 </div>
-                <span class="rating-score">{{ service.rating }}</span>
-                <span class="rating-text">({{ service.reviews }} avis)</span>
-              </div>
-              
-              <!-- Features -->
-              <div class="service-features">
-                <div class="feature-item">
-                  <span class="feature-icon">✓</span>
-                  <span>Professionnel certifié</span>
-                </div>
-                <div class="feature-item">
-                  <span class="feature-icon">⚡</span>
-                  <span>Intervention rapide</span>
-                </div>
-                <div class="feature-item">
-                  <span class="feature-icon">🛡️</span>
-                  <span>Assurance incluse</span>
+                <div class="rating-details">
+                  <span class="rating-value">{{ service.rating }}/5</span>
+                  <span class="rating-dot">•</span>
+                  <span class="rating-count">{{ service.reviews }} avis clients</span>
                 </div>
               </div>
               
-              <!-- Price & Action -->
-              <div class="service-footer">
-                <div class="service-price">
-                  <span class="price-label">À partir de</span>
-                  <span class="price-value">{{ service.price }}€</span>
-                  <span class="price-unit">/heure</span>
+              <!-- Features Liste Professionnelle -->
+              <div class="service-features-list">
+                <div class="feature-item-professional">
+                  <div class="feature-icon-circle">
+                    <span class="feature-icon">✓</span>
+                  </div>
+                  <span class="feature-label">Professionnel certifié</span>
                 </div>
-                <button class="service-cta">
-                  <span>Réserver</span>
-                  <div class="cta-background"></div>
-                </button>
+                <div class="feature-item-professional">
+                  <div class="feature-icon-circle">
+                    <span class="feature-icon">⚡</span>
+                  </div>
+                  <span class="feature-label">Intervention rapide</span>
+                </div>
+                <div class="feature-item-professional">
+                  <div class="feature-icon-circle">
+                    <span class="feature-icon">🛡️</span>
+                  </div>
+                  <span class="feature-label">Assurance incluse</span>
+                </div>
               </div>
             </div>
             
-                         <!-- Hover Effects -->
-             <div class="card-overlay">
-               <div class="overlay-content">
-                 <h4>{{ service.title }}</h4>
-                 <p>Disponible 7j/7</p>
-                 <button class="view-details" @click.stop="openServiceDetail(service)">Voir détails</button>
-               </div>
-             </div>
+            <!-- Footer Professionnel avec Prix et CTA -->
+            <div class="service-card-footer">
+              <div class="service-price-section">
+                <span class="price-starting">À partir de</span>
+                <div class="price-container">
+                  <span class="price-amount">{{ service.price }}€</span>
+                  <span class="price-frequency">/heure</span>
+                </div>
+              </div>
+              <button class="service-cta-professional">
+                <span class="cta-label">Réserver</span>
+                <span class="cta-icon-arrow">→</span>
+                <div class="cta-ripple"></div>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -239,6 +274,7 @@
 
 <script>
 import { translationService } from '../services/translation.js'
+import { servicesService } from '../services/api.js'
 
 export default {
   name: 'HomePage',
@@ -252,6 +288,10 @@ export default {
     currentLanguage() {
       // Force la mise à jour quand la langue change
       this.$forceUpdate()
+    },
+    selectedCategory() {
+      // Recharger les services quand la catégorie change
+      this.loadServices()
     }
   },
   data() {
@@ -265,6 +305,11 @@ export default {
       // Index de l'image de fond actuelle (0, 1, 2 pour 3 images)
       currentImageIndex: 0,
       
+      // Services chargés depuis l'API
+      services: [],
+      servicesLoading: false,
+      servicesError: null,
+      
       // Categories de services disponibles
       serviceCategories: [
         { id: 'all', name: 'Tous', icon: '🔍' },
@@ -272,58 +317,6 @@ export default {
         { id: 'plomberie', name: 'Plomberie', icon: '🚿' },
         { id: 'electricite', name: 'Électricité', icon: '⚡' },
         { id: 'climatisation', name: 'Climatisation', icon: '❄️' }
-      ],
-      
-      // Liste des services disponibles
-      services: [
-        {
-          id: 1,
-          title: 'Jardinage et tonte',
-          description: 'Entretien complet de jardin, tonte de pelouse, taille des haies et plantation',
-          category: 'jardinage',
-          icon: '🌿',
-          rating: 4.9,
-          reviews: 156,
-          price: 30,
-          features: ['Tonte de pelouse', 'Taille des haies', 'Plantation', 'Désherbage'],
-          image: '/images/photo1.jpg'
-        },
-        {
-          id: 2,
-          title: 'Plomberie',
-          description: 'Réparation et installation plomberie, dépannage d\'urgence 24h/24',
-          category: 'plomberie',
-          icon: '🚿',
-          rating: 4.8,
-          reviews: 198,
-          price: 50,
-          features: ['Réparation fuites', 'Installation sanitaires', 'Débouchage', 'Urgence 24h'],
-          image: '/images/photo2.jpg'
-        },
-        {
-          id: 3,
-          title: 'Électricité',
-          description: 'Installation électrique, dépannage et mise aux normes par électriciens certifiés',
-          category: 'electricite',
-          icon: '⚡',
-          rating: 4.7,
-          reviews: 234,
-          price: 45,
-          features: ['Installation électrique', 'Dépannage urgent', 'Mise aux normes', 'Éclairage LED'],
-          image: '/images/photo3.jpg'
-        },
-        {
-          id: 4,
-          title: 'Climatisation',
-          description: 'Installation, entretien et réparation de systèmes de climatisation et chauffage',
-          category: 'climatisation',
-          icon: '❄️',
-          rating: 4.9,
-          reviews: 142,
-          price: 60,
-          features: ['Installation clim', 'Entretien annuel', 'Réparation', 'Dépannage urgence'],
-          image: '/images/photo4.jpg'
-        }
       ],
       
       // Témoignages clients
@@ -367,6 +360,9 @@ export default {
   },
   
   mounted() {
+    // Charger les services depuis l'API
+    this.loadServices();
+    
     // Animation automatique des témoignages (plus lente)
     this.testimonialTimer = setInterval(() => {
       this.currentTestimonial = (this.currentTestimonial + 1) % this.testimonials.length
@@ -395,6 +391,25 @@ export default {
     // Méthode de traduction
     t(key) {
       return translationService.t(key)
+    },
+    
+    // Charger les services depuis l'API
+    async loadServices() {
+      this.servicesLoading = true;
+      this.servicesError = null;
+      
+      try {
+        const category = this.selectedCategory === 'all' ? null : this.selectedCategory;
+        const response = await servicesService.getAll(category, true);
+        this.services = response.data;
+        console.log('✅ Services chargés:', this.services.length);
+      } catch (error) {
+        console.error('❌ Erreur lors du chargement des services:', error);
+        this.servicesError = 'Impossible de charger les services';
+        this.services = [];
+      } finally {
+        this.servicesLoading = false;
+      }
     },
     
     // Défilement vers la section services
@@ -752,60 +767,129 @@ export default {
   pointer-events: none;
 }
 
-/* Header Section Premium */
+/* ===== Header Section Premium Professionnel ===== */
 .services-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
   margin-bottom: 4rem;
-  gap: 2rem;
-  flex-wrap: wrap;
+  gap: 3rem;
 }
 
 .header-content {
-  flex: 1;
-  max-width: 600px;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-top {
+  margin-bottom: 1.5rem;
 }
 
 .header-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   background: linear-gradient(135deg, #ffc107, #ff9800);
   color: #000;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(255, 193, 7, 0.4);
+  animation: badge-pulse 2s infinite;
 }
 
+.badge-icon {
+  font-size: 1.2rem;
+  animation: rotate-icon 3s infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes rotate-icon {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
+}
+
+.header-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+  margin-top: 1.5rem;
+  border-radius: 2px;
+}
+
+/* Stats Section Professionnelle */
 .header-stats {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
-  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1000px;
 }
 
 .stat-item {
+  position: relative;
   text-align: center;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1.5rem 1rem;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2rem 1.5rem;
+  border-radius: 18px;
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+}
+
+.stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+}
+
+.stat-item:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--accent-blue);
+  box-shadow: 0 15px 40px rgba(79, 172, 254, 0.25);
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  animation: float-stat 3s ease-in-out infinite;
+}
+
+@keyframes float-stat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
 .stat-number {
   display: block;
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--accent-blue);
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #4FACFE, #00F2FE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 0.5rem;
 }
 
 .stat-label {
   font-size: 0.9rem;
-  color: var(--text-gray);
-  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
   letter-spacing: 0.5px;
 }
 
@@ -898,22 +982,376 @@ export default {
   position: relative;
 }
 
+/* ===== Service Card Professionnel ===== */
 .service-card {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 600px;
+  backdrop-filter: blur(15px);
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(79, 172, 254, 0.2);
+  transform: translateY(-12px) scale(1.02);
+  border-color: var(--accent-blue);
+  box-shadow: 
+    0 20px 50px rgba(79, 172, 254, 0.3),
+    0 0 40px rgba(79, 172, 254, 0.1);
+}
+
+/* Card Background Effects */
+.card-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(79, 172, 254, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(30, 60, 114, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.6s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.service-card:hover .card-shine {
+  left: 100%;
+}
+
+/* ===== Service Image Header Professionnel ===== */
+.service-image-wrapper {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.service-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-image {
+  transform: scale(1.1);
+}
+
+.image-overlay-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 0%, rgba(10, 14, 19, 0.8) 100%);
+}
+
+/* Badges Groupe */
+.service-badges-group {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 3;
+}
+
+.badge-premium, .badge-verified {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.badge-premium {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #000;
+}
+
+.badge-verified {
+  background: rgba(76, 175, 80, 0.9);
+  color: #fff;
+}
+
+/* Icon Container Professionnel */
+.service-icon-container {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+}
+
+.icon-background {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+  border-radius: 50%;
+  border: 4px solid rgba(10, 14, 19, 0.8);
+  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+}
+
+.service-icon {
+  position: relative;
+  z-index: 1;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+}
+
+/* ===== Service Content Professionnel ===== */
+.service-content {
+  padding: 3rem 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  z-index: 2;
+  position: relative;
+}
+
+.service-header-info {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.service-category-tag {
+  display: inline-block;
+  background: rgba(79, 172, 254, 0.15);
+  color: var(--accent-blue);
+  padding: 0.4rem 1rem;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.8rem;
+}
+
+.service-title {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0;
+  line-height: 1.3;
+}
+
+.service-description {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Rating Section Professionnelle */
+.service-rating-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rating-stars-container {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.rating-star {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 1.3rem;
+  transition: color 0.2s ease;
+}
+
+.rating-star.active {
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.rating-details {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.rating-value {
+  color: #fff;
+  font-weight: 700;
+}
+
+.rating-dot {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.rating-count {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Features Liste Professionnelle */
+.service-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: auto;
+}
+
+.feature-item-professional {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.feature-icon-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(79, 172, 254, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.feature-icon {
+  font-size: 1.1rem;
+}
+
+.feature-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* ===== Card Footer Professionnel ===== */
+.service-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  position: relative;
+}
+
+.service-price-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.price-starting {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.price-container {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+}
+
+.price-amount {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+
+.price-frequency {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* CTA Button Professionnel */
+.service-cta-professional {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+}
+
+.service-cta-professional:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.5);
+}
+
+.cta-label {
+  position: relative;
+  z-index: 2;
+}
+
+.cta-icon-arrow {
+  position: relative;
+  z-index: 2;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.service-cta-professional:hover .cta-icon-arrow {
+  transform: translateX(5px);
+}
+
+.cta-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.service-cta-professional:active .cta-ripple {
+  width: 300px;
+  height: 300px;
 }
 
 .card-pattern {

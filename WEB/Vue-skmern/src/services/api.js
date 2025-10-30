@@ -191,4 +191,39 @@ export const authService = {
   }
 }
 
+// Service pour gérer les services
+export const servicesService = {
+  // Récupérer tous les services
+  async getAll(category = null, active = true) {
+    const params = {};
+    if (category && category !== 'all') {
+      params.category = category;
+    }
+    if (active !== null) {
+      params.active = active;
+    }
+    return api.get('/services', { params });
+  },
+
+  // Récupérer un service par ID
+  async getById(id) {
+    return api.get(`/services/${id}`);
+  },
+
+  // Créer un nouveau service
+  async create(serviceData) {
+    return api.post('/services', serviceData);
+  },
+
+  // Mettre à jour un service
+  async update(id, serviceData) {
+    return api.put(`/services/${id}`, serviceData);
+  },
+
+  // Supprimer un service
+  async delete(id) {
+    return api.delete(`/services/${id}`);
+  }
+}
+
 export default api 
