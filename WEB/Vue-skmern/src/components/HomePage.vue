@@ -21,18 +21,18 @@
         <!-- Contenu principal du hero -->
         <div class="hero-text">
           <h1 class="hero-title">
-            <span class="text-animate">Bienvenue chez</span>
+            <span class="text-animate">{{ t('welcomeTo') }}</span>
             <span class="brand-name">FIXILYA</span>
           </h1>
           <p class="hero-subtitle">
-            Votre plateforme de services à domicile moderne et fiable
+            {{ t('platformSubtitle') }}
           </p>
           <div class="hero-buttons">
             <button class="cta-button primary" @click="scrollToServices">
-              <span>Découvrir nos services</span>
+              <span>{{ t('discoverServices') }}</span>
             </button>
             <button class="cta-button secondary" @click="$emit('viewChange', 'register')">
-              <span>Rejoindre maintenant</span>
+              <span>{{ t('joinNow') }}</span>
             </button>
           </div>
         </div>
@@ -72,8 +72,8 @@
         <div class="services-header">
           <div class="header-content">
             <span class="header-badge">🏆 Excellence</span>
-            <h2 class="section-title">Nos Services</h2>
-            <p class="section-subtitle">Des solutions professionnelles adaptées à tous vos besoins quotidiens</p>
+            <h2 class="section-title">{{ t('ourServices') }}</h2>
+            <p class="section-subtitle">{{ t('servicesSubtitle') }}</p>
           </div>
           <div class="header-stats">
             <div class="stat-item">
@@ -238,9 +238,22 @@
 </template>
 
 <script>
+import { translationService } from '../services/translation.js'
+
 export default {
   name: 'HomePage',
   emits: ['viewChange'],
+  computed: {
+    currentLanguage() {
+      return translationService.getCurrentLanguage()
+    }
+  },
+  watch: {
+    currentLanguage() {
+      // Force la mise à jour quand la langue change
+      this.$forceUpdate()
+    }
+  },
   data() {
     return {
       // Catégorie sélectionnée pour le filtre des services
@@ -379,6 +392,11 @@ export default {
   },
   
   methods: {
+    // Méthode de traduction
+    t(key) {
+      return translationService.t(key)
+    },
+    
     // Défilement vers la section services
     scrollToServices() {
       this.$refs.servicesSection?.scrollIntoView({ 

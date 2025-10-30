@@ -12,7 +12,12 @@ const translations = {
     
     // Page d'accueil
     welcome: 'Bienvenue sur FIXILYA',
+    welcomeTo: 'Bienvenue chez',
     subtitle: 'Mise en relation entre clients et techniciens',
+    platformSubtitle: 'Votre plateforme de services à domicile moderne et fiable',
+    discoverServices: 'Découvrir nos services',
+    joinNow: 'Rejoindre maintenant',
+    servicesSubtitle: 'Des solutions professionnelles adaptées à tous vos besoins quotidiens',
     findTechnician: 'Trouvez votre technicien',
     searchPlaceholder: 'Rechercher un technicien (ex: plombier, électricien...)',
     searchButton: 'Rechercher',
@@ -113,7 +118,12 @@ const translations = {
     
     // Page d'accueil
     welcome: 'Welcome to FIXILYA',
+    welcomeTo: 'Welcome to',
     subtitle: 'Connecting clients and technicians',
+    platformSubtitle: 'Your modern and reliable home services platform',
+    discoverServices: 'Discover our services',
+    joinNow: 'Join now',
+    servicesSubtitle: 'Professional solutions adapted to all your daily needs',
     findTechnician: 'Find your technician',
     searchPlaceholder: 'Search for a technician (ex: plumber, electrician...)',
     searchButton: 'Search',
@@ -214,7 +224,12 @@ const translations = {
     
     // Page d'accueil
     welcome: 'مرحباً بكم في FIXILYA',
+    welcomeTo: 'مرحباً بكم في',
     subtitle: 'ربط العملاء بالفنيين',
+    platformSubtitle: 'منصتكم الحديثة والموثوقة للخدمات المنزلية',
+    discoverServices: 'اكتشف خدماتنا',
+    joinNow: 'انضم الآن',
+    servicesSubtitle: 'حلول احترافية مصممة لجميع احتياجاتك اليومية',
     findTechnician: 'اعثر على الفني المناسب',
     searchPlaceholder: 'البحث عن فني (مثال: سباك، كهربائي...)',
     searchButton: 'بحث',
