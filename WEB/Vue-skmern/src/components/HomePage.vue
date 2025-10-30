@@ -107,20 +107,6 @@
           </div>
         </div>
         
-        <!-- Filtres Ultra-Modernes -->
-        <div class="service-filters">
-          <button 
-            v-for="category in serviceCategories" 
-            :key="category.id"
-            @click="selectedCategory = category.id"
-            :class="['filter-btn', { active: selectedCategory === category.id }]"
-          >
-            <span class="filter-icon">{{ category.icon }}</span>
-            <span>{{ category.name }}</span>
-            <div class="filter-ripple"></div>
-          </button>
-        </div>
-        
         <!-- Grille Services Premium -->
         <div class="services-grid">
           <div 
@@ -288,17 +274,10 @@ export default {
     currentLanguage() {
       // Force la mise à jour quand la langue change
       this.$forceUpdate()
-    },
-    selectedCategory() {
-      // Recharger les services quand la catégorie change
-      this.loadServices()
     }
   },
   data() {
     return {
-      // Catégorie sélectionnée pour le filtre des services
-      selectedCategory: 'all',
-      
       // Index du témoignage actuellement affiché
       currentTestimonial: 0,
       
@@ -309,15 +288,6 @@ export default {
       services: [],
       servicesLoading: false,
       servicesError: null,
-      
-      // Categories de services disponibles
-      serviceCategories: [
-        { id: 'all', name: 'Tous', icon: '🔍' },
-        { id: 'jardinage', name: 'Jardinage', icon: '🌱' },
-        { id: 'plomberie', name: 'Plomberie', icon: '🚿' },
-        { id: 'electricite', name: 'Électricité', icon: '⚡' },
-        { id: 'climatisation', name: 'Climatisation', icon: '❄️' }
-      ],
       
       // Témoignages clients
       testimonials: [
@@ -344,12 +314,9 @@ export default {
   },
   
   computed: {
-    // Services filtrés selon la catégorie sélectionnée
+    // Retourne tous les services
     filteredServices() {
-      if (this.selectedCategory === 'all') {
-        return this.services
-      }
-      return this.services.filter(service => service.category === this.selectedCategory)
+      return this.services
     },
     
     // Image actuelle pour le background
@@ -399,8 +366,7 @@ export default {
       this.servicesError = null;
       
       try {
-        const category = this.selectedCategory === 'all' ? null : this.selectedCategory;
-        const response = await servicesService.getAll(category, true);
+        const response = await servicesService.getAll(null, true);
         this.services = response.data;
         console.log('✅ Services chargés:', this.services.length);
       } catch (error) {
@@ -893,91 +859,11 @@ export default {
   letter-spacing: 0.5px;
 }
 
-/* Filtres Ultra-Modernes */
-.service-filters {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 4rem;
-  flex-wrap: wrap;
-  position: relative;
-}
-
-.filter-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-weight: 600;
-  font-size: 1rem;
-  backdrop-filter: blur(20px);
-  position: relative;
-  overflow: hidden;
-  min-width: 140px;
-  justify-content: center;
-}
-
-.filter-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: all 0.6s ease;
-}
-
-.filter-btn:hover::before {
-  left: 100%;
-}
-
-.filter-btn:hover {
-  background: rgba(30, 60, 114, 0.3);
-  border-color: var(--accent-blue);
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 30px rgba(79, 172, 254, 0.2);
-}
-
-.filter-btn.active {
-  background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
-  border-color: var(--accent-blue);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
-}
-
-.filter-icon {
-  font-size: 1.2rem;
-}
-
-.filter-ripple {
-  position: absolute;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  transition: all 0.4s ease;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.filter-btn:active .filter-ripple {
-  width: 100px;
-  height: 100px;
-}
-
 /* Grille Services Premium */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
   margin-top: 2rem;
   position: relative;
 }
@@ -987,14 +873,14 @@ export default {
   position: relative;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
   border: 2px solid rgba(255, 255, 255, 0.12);
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 600px;
+  min-height: 480px;
   backdrop-filter: blur(15px);
 }
 
@@ -1039,7 +925,7 @@ export default {
 /* ===== Service Image Header Professionnel ===== */
 .service-image-wrapper {
   position: relative;
-  height: 220px;
+  height: 160px;
   overflow: hidden;
   z-index: 2;
 }
@@ -1068,21 +954,21 @@ export default {
 /* Badges Groupe */
 .service-badges-group {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 10px;
+  right: 10px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.3rem;
   z-index: 3;
 }
 
 .badge-premium, .badge-verified {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
+  gap: 0.3rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.7rem;
   font-weight: 700;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -1101,7 +987,7 @@ export default {
 /* Icon Container Professionnel */
 .service-icon-container {
   position: absolute;
-  bottom: -40px;
+  bottom: -30px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 4;
@@ -1109,28 +995,28 @@ export default {
 
 .icon-background {
   position: absolute;
-  width: 90px;
-  height: 90px;
+  width: 60px;
+  height: 60px;
   background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
   border-radius: 50%;
-  border: 4px solid rgba(10, 14, 19, 0.8);
-  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+  border: 3px solid rgba(10, 14, 19, 0.8);
+  box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
 }
 
 .service-icon {
   position: relative;
   z-index: 1;
-  font-size: 3rem;
+  font-size: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 90px;
-  height: 90px;
+  width: 60px;
+  height: 60px;
 }
 
 /* ===== Service Content Professionnel ===== */
 .service-content {
-  padding: 3rem 2rem 1.5rem;
+  padding: 2.2rem 1.5rem 1rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -1140,25 +1026,25 @@ export default {
 
 .service-header-info {
   text-align: center;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem;
 }
 
 .service-category-tag {
   display: inline-block;
   background: rgba(79, 172, 254, 0.15);
   color: var(--accent-blue);
-  padding: 0.4rem 1rem;
-  border-radius: 15px;
-  font-size: 0.75rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.8rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
 }
 
 .service-title {
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 800;
   margin-bottom: 0;
   line-height: 1.3;
@@ -1166,10 +1052,14 @@ export default {
 
 .service-description {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
   text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Rating Section Professionnelle */
@@ -1177,20 +1067,20 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .rating-stars-container {
   display: flex;
-  gap: 0.3rem;
+  gap: 0.2rem;
 }
 
 .rating-star {
   color: rgba(255, 255, 255, 0.3);
-  font-size: 1.3rem;
+  font-size: 1rem;
   transition: color 0.2s ease;
 }
 
@@ -1202,8 +1092,8 @@ export default {
 .rating-details {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
+  gap: 0.4rem;
+  font-size: 0.8rem;
 }
 
 .rating-value {
@@ -1223,19 +1113,19 @@ export default {
 .service-features-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.6rem;
   margin-bottom: auto;
 }
 
 .feature-item-professional {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.7rem;
 }
 
 .feature-icon-circle {
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: rgba(79, 172, 254, 0.15);
   display: flex;
@@ -1245,12 +1135,12 @@ export default {
 }
 
 .feature-icon {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
 }
 
 .feature-label {
   color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 500;
 }
 
@@ -1259,7 +1149,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 2rem;
+  padding: 1rem 1.5rem;
   background: rgba(255, 255, 255, 0.03);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 2;
@@ -1269,11 +1159,11 @@ export default {
 .service-price-section {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.2rem;
 }
 
 .price-starting {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -1282,18 +1172,18 @@ export default {
 .price-container {
   display: flex;
   align-items: baseline;
-  gap: 0.3rem;
+  gap: 0.2rem;
 }
 
 .price-amount {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 900;
   color: #fff;
   line-height: 1;
 }
 
 .price-frequency {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -1302,14 +1192,14 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.6rem;
   background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
   color: #fff;
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 30px;
+  padding: 0.7rem 1.3rem;
+  border-radius: 25px;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.3s ease;
   overflow: hidden;
@@ -1329,7 +1219,7 @@ export default {
 .cta-icon-arrow {
   position: relative;
   z-index: 2;
-  font-size: 1.2rem;
+  font-size: 1rem;
   transition: transform 0.3s ease;
 }
 
