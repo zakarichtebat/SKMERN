@@ -1,9 +1,28 @@
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
 async function main() {
   console.log('🌱 Début du seeding de la base de données...');
+
+  // Créer un utilisateur admin
+  const adminPassword = await bcrypt.hash('admin123', 10);
+  await prisma.user.upsert({
+    where: { email: 'admin@fixilya.com' },
+    update: {},
+    create: {
+      nom: 'Admin',
+      prenom: 'FIXILYA',
+      email: 'admin@fixilya.com',
+      tel: '+33600000000',
+      password: adminPassword,
+      role: 'ADMIN',
+      statut: 'active',
+    },
+  });
+
+  console.log('✅ Utilisateur admin créé (email: admin@fixilya.com, password: admin123)');
 
   // Créer des services
   const services = [
@@ -84,6 +103,7 @@ async function main() {
   }
 
   console.log('✅ Seeding terminé avec succès !');
+  console.log(`👥 1 utilisateur admin créé`);
   console.log(`📊 ${services.length} services créés`);
 }
 

@@ -14,7 +14,7 @@ export class AuthService {
   ) {}
 
   async register(registerDto: RegisterDto) {
-    const { nom, prenom, email, tel, password } = registerDto;
+    const { nom, prenom, email, tel, password, role } = registerDto;
 
     // Vérifier si l'utilisateur existe déjà
     const existingUser = await this.prisma.user.findUnique({
@@ -28,7 +28,7 @@ export class AuthService {
     // Hasher le mot de passe
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Créer l'utilisateur
+    // Créer l'utilisateur avec le rôle (CLIENT par défaut)
     const user = await this.prisma.user.create({
       data: {
         nom,
@@ -36,11 +36,12 @@ export class AuthService {
         email,
         tel,
         password: hashedPassword,
+        role: role || 'CLIENT',
       },
     });
 
-    // Générer le token JWT
-    const payload = { sub: user.id, email: user.email };
+    // Générer le token JWT avec le rôle
+    const payload = { sub: user.id, email: user.email, role: user.role };
     const token = this.jwtService.sign(payload);
 
     // Retourner l'utilisateur sans le mot de passe et le token
@@ -69,8 +70,8 @@ export class AuthService {
       throw new UnauthorizedException('Email ou mot de passe incorrect');
     }
 
-    // Générer le token JWT
-    const payload = { sub: user.id, email: user.email };
+    // Générer le token JWT avec le rôle
+    const payload = { sub: user.id, email: user.email, role: user.role };
     const token = this.jwtService.sign(payload);
 
     // Retourner l'utilisateur sans le mot de passe et le token
