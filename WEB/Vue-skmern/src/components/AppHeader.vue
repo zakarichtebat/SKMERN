@@ -34,6 +34,14 @@
             {{ t('contact') }}
           </button>
           <button 
+            v-if="isAuthenticated && currentUser && currentUser.role === 'ADMIN'"
+            @click="changeView('admin')" 
+            :class="{ active: currentView === 'admin' }"
+            class="nav-button admin-button"
+          >
+            ⚙️ Admin
+          </button>
+          <button 
             v-if="!isAuthenticated"
             @click="changeView('login')" 
             :class="{ active: currentView === 'login' }"
@@ -97,6 +105,14 @@
             class="mobile-nav-button"
           >
             📞 {{ t('contact') }}
+          </button>
+          <button 
+            v-if="isAuthenticated && currentUser && currentUser.role === 'ADMIN'"
+            @click="mobileNavClick('admin')" 
+            :class="{ active: currentView === 'admin' }"
+            class="mobile-nav-button admin-button"
+          >
+            ⚙️ Admin Dashboard
           </button>
           <button 
             v-if="!isAuthenticated"
@@ -601,6 +617,31 @@ export default {
     background: linear-gradient(135deg, #ffc107 0%, #ff5722 100%);
     border-color: rgba(255, 193, 7, 0.8);
     box-shadow: 0 6px 25px rgba(255, 193, 7, 0.3);
+  }
+
+  .nav-button.admin-button {
+    background: linear-gradient(135deg, #ffc107, #ff9800);
+    border-color: #ffc107;
+    color: #000;
+    font-weight: 700;
+  }
+
+  .nav-button.admin-button:hover {
+    background: linear-gradient(135deg, #ffca28, #ffa726);
+    border-color: #ffca28;
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+  }
+
+  .mobile-nav-button.admin-button {
+    background: linear-gradient(135deg, #ffc107, #ff9800);
+    border-color: #ffc107;
+    color: #000;
+    font-weight: 700;
+  }
+
+  .mobile-nav-button.admin-button:hover {
+    background: linear-gradient(135deg, #ffca28, #ffa726);
+    border-color: #ffca28;
   }
 
   /* User Info Desktop */

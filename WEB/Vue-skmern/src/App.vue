@@ -59,6 +59,12 @@
           </div>
         </div>
 
+        <!-- Dashboard Admin -->
+        <AdminDashboard 
+          v-else-if="isAuthenticated && currentUser && currentUser.role === 'ADMIN' && currentView === 'admin'"
+          :currentUser="currentUser"
+        />
+
         <!-- Dashboard utilisateur -->
         <div v-else-if="isAuthenticated" class="dashboard-container">
           <UserProfile 
@@ -79,6 +85,7 @@
 import LoginForm from './components/LoginForm.vue'
 import RegisterForm from './components/RegisterForm.vue'
 import UserProfile from './components/UserProfile.vue'
+import AdminDashboard from './components/AdminDashboard.vue'
 import HomePage from './components/HomePage.vue'
 import ContactPage from './components/ContactPage.vue'
 import ServiceDetail from './components/ServiceDetail.vue'
@@ -93,6 +100,7 @@ export default {
     LoginForm,
     RegisterForm,
     UserProfile,
+    AdminDashboard,
     HomePage,
     ContactPage,
     ServiceDetail,
@@ -101,7 +109,7 @@ export default {
   },
   data() {
     return {
-      currentView: 'home', // 'home', 'login', 'register', 'contact', 'serviceDetail'
+      currentView: 'home', // 'home', 'login', 'register', 'contact', 'serviceDetail', 'admin'
       currentUser: null,
       isAuthenticated: false,
       selectedService: null

@@ -138,4 +138,17 @@ export class AuthController {
   async updateProfile(@Request() req, @Body() updateProfileDto: UpdateProfileDto) {
     return this.authService.updateProfile(req.user.id, updateProfileDto);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('users')
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ 
+    summary: 'Récupérer tous les utilisateurs',
+    description: 'Récupère la liste de tous les utilisateurs (ADMIN uniquement)'
+  })
+  @ApiResponse({ status: 200, description: 'Liste des utilisateurs récupérée avec succès' })
+  @ApiResponse({ status: 401, description: 'Non autorisé' })
+  async getAllUsers() {
+    return this.authService.getAllUsers();
+  }
 } 

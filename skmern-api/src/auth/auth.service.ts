@@ -114,4 +114,17 @@ export class AuthService {
     const { password: _, ...userWithoutPassword } = updatedUser;
     return userWithoutPassword;
   }
+
+  async getAllUsers() {
+    const users = await this.prisma.user.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return users.map(user => {
+      const { password: _, ...userWithoutPassword } = user;
+      return userWithoutPassword;
+    });
+  }
 } 
