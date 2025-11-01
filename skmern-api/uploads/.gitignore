@@ -1,0 +1,7 @@
+# Ignorer toutes les images uploadées
+*
+# Mais garder le dossier
+!.gitignore
+!services/.gitignore
+
+

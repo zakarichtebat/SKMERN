@@ -121,7 +121,7 @@
             
             <!-- Service Image Header professionnel -->
             <div class="service-image-wrapper">
-              <div class="service-image" :style="{ backgroundImage: 'url(' + service.image + ')' }">
+              <div class="service-image" :style="{ backgroundImage: 'url(' + getImageUrl(service.image) + ')' }">
                 <div class="image-overlay-gradient"></div>
               </div>
               
@@ -359,7 +359,18 @@ export default {
     t(key) {
       return translationService.t(key)
     },
-    
+
+    // Obtenir l'URL complète de l'image
+    getImageUrl(imagePath) {
+      if (!imagePath) return '/photo1.jpg'
+      // Si le chemin commence par /uploads/, ajouter l'URL du serveur
+      if (imagePath.startsWith('/uploads/')) {
+        return `http://localhost:3000${imagePath}`
+      }
+      // Sinon, retourner le chemin tel quel (pour les anciennes images)
+      return imagePath
+    },
+
     // Charger les services depuis l'API
     async loadServices() {
       this.servicesLoading = true;

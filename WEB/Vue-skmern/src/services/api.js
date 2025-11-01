@@ -226,4 +226,19 @@ export const servicesService = {
   }
 }
 
+// Service pour gérer les uploads
+export const uploadService = {
+  // Upload une image de service
+  async uploadServiceImage(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    return api.post('/upload/service-image', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+  }
+}
+
 export default api 
