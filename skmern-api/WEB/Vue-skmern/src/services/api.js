@@ -192,6 +192,11 @@ export const authService = {
   getCurrentUser() {
     const user = localStorage.getItem('user')
     return user ? JSON.parse(user) : null
+  },
+
+  // Récupérer tous les utilisateurs (ADMIN uniquement)
+  async getAllUsers() {
+    return api.get('/auth/users')
   }
 }
 

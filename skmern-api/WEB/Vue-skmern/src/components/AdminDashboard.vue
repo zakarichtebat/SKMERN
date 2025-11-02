@@ -386,17 +386,13 @@ export default {
       try {
         const [servicesRes, usersRes] = await Promise.all([
           servicesService.getAll(null, null),
-          fetch('http://localhost:3000/auth/users', {
-            headers: {
-              'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-          }).then(r => r.json())
+          authService.getAllUsers()
         ])
         
         this.stats.totalServices = servicesRes.data.length
-        this.stats.totalUsers = usersRes.length
-        this.stats.totalAdmins = usersRes.filter(u => u.role === 'ADMIN').length
-        this.stats.totalClients = usersRes.filter(u => u.role === 'CLIENT').length
+        this.stats.totalUsers = usersRes.data.length
+        this.stats.totalAdmins = usersRes.data.filter(u => u.role === 'ADMIN').length
+        this.stats.totalClients = usersRes.data.filter(u => u.role === 'CLIENT').length
       } catch (error) {
         console.error('Erreur chargement stats:', error)
       }
@@ -433,9 +429,10 @@ export default {
       if (!imagePath) {
         return '/photo1.jpg'
       }
-      // Si le chemin commence par /uploads/, ajouter l'URL du serveur
+      // Si le chemin commence par /uploads/, c'est déjà le bon chemin
       if (imagePath.startsWith('/uploads/')) {
-        return `http://localhost:3000${imagePath}`
+        // En production Railway, les fichiers statiques sont servis depuis la racine
+        return imagePath
       }
       // Sinon, retourner le chemin tel quel
       return imagePath
@@ -449,12 +446,8 @@ export default {
     async loadUsers() {
       this.usersLoading = true
       try {
-        const response = await fetch('http://localhost:3000/auth/users', {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
-        })
-        this.users = await response.json()
+        const response = await authService.getAllUsers()
+        this.users = response.data
       } catch (error) {
         console.error('Erreur chargement utilisateurs:', error)
       } finally {
@@ -513,9 +506,8 @@ export default {
       
       // Si le service a une image, afficher l'aperçu
       if (service.image) {
-        const imageUrl = `http://localhost:3000${service.image}`
-        console.log('🖼️ URL de l\'aperçu:', imageUrl)
-        this.imagePreview = imageUrl
+        this.imagePreview = service.image
+        console.log('🖼️ URL de l\'aperçu:', this.imagePreview)
       } else {
         console.log('⚠️ Aucune image pour ce service')
         this.imagePreview = null

@@ -363,9 +363,9 @@ export default {
     // Obtenir l'URL complète de l'image
     getImageUrl(imagePath) {
       if (!imagePath) return '/photo1.jpg'
-      // Si le chemin commence par /uploads/, ajouter l'URL du serveur
+      // Si le chemin commence par /uploads/, c'est déjà le bon chemin
       if (imagePath.startsWith('/uploads/')) {
-        return `http://localhost:3000${imagePath}`
+        return imagePath
       }
       // Sinon, retourner le chemin tel quel (pour les anciennes images)
       return imagePath
