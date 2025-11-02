@@ -9,16 +9,15 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   
   // Configuration des fichiers statiques
-  // __dirname pointe vers dist/src/, donc on remonte de 2 niveaux pour atteindre la racine
   app.useStaticAssets(join(__dirname, '..', '..', 'uploads'), {
     prefix: '/uploads/',
   });
   
   console.log('📁 Dossier uploads:', join(__dirname, '..', '..', 'uploads'));
-  
+
   // Configuration du CORS
   app.enableCors({
-    origin: ['http://localhost:5173', 'http://localhost:5001', 'http://localhost:5002'], // URLs du frontend Vue.js
+    origin: ['http://localhost:5173', 'http://localhost:5001', 'http://localhost:5002'],
     credentials: true,
   });
 
@@ -59,6 +58,9 @@ async function bootstrap() {
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
     ],
   });
+
+  // 👇 هاد السطر زيدو قبل ما يبدأ السيرفر باش نتأكدو من المسار ديال Vue dist
+  console.log('📂 Serving static files from:', join(__dirname, '..', '..', 'WEB', 'Vue-skmern', 'dist'));
 
   const port = process.env.PORT ?? 3000;
   await app.listen(port);

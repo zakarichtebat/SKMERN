@@ -9,11 +9,10 @@ import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
-    // 👇 هادي كتخلي NestJS يخدم ملفات Vue (frontend)
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'web', 'vue-skmern', 'dist'),
+      // مزيان لاحظ رجعنا بثلاث نقاط بدل جوج
+      rootPath: join(__dirname, '..', '..', '..', 'WEB', 'Vue-skmern', 'dist'),
     }),
-
     AuthModule,
     ServicesModule,
     UploadModule,
