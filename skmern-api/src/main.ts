@@ -41,9 +41,15 @@ async function bootstrap() {
 
   console.log('📂 Serving static files from:', vueDistPath);
 
-  // 👇 Important: Fallback for Vue *only if not /api/*
+  // 👇 Important: Fallback for Vue (but not for static files)
   app.use((req, res, next) => {
-    if (req.url.startsWith('/api')) return next(); // 👉 let NestJS handle API routes
+    // Laisser passer les routes API et les fichiers statiques
+    if (req.url.startsWith('/api') || 
+        req.url.startsWith('/uploads') ||
+        req.url.match(/\.(jpg|jpeg|png|gif|webp|svg|ico|css|js|json|woff|woff2|ttf|eot)$/)) {
+      return next();
+    }
+    // Servir index.html pour les routes Vue (SPA)
     res.sendFile(join(vueDistPath, 'index.html'));
   });
 
