@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // Serve static Vue files
-  const vueDistPath = join(__dirname, '..', 'WEB', 'Vue-skmern', 'dist');
+  const vueDistPath = join(__dirname, '..', '..', 'WEB', 'Vue-skmern', 'dist');
   app.use(express.static(vueDistPath));
   console.log('📂 Serving static files from:', vueDistPath);
 
