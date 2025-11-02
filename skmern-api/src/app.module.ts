@@ -9,9 +9,8 @@ import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
-    // ✅ كيخدم سواء Vue داخل ولا خارج skmern-api
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', '..', 'WEB', 'Vue-skmern', 'dist'),
+      rootPath: join(__dirname, '..', 'WEB', 'Vue-skmern', 'dist'),
       exclude: ['/api*'],
     }),
     AuthModule,
