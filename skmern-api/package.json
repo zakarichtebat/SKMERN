@@ -6,11 +6,12 @@
   "private": true,
   "license": "UNLICENSED",
 "scripts": {
-  "build:vue": "cd ../WEB/Vue-skmern && npm install && npm run build && cp -r ../WEB/Vue-skmern/dist ./WEB/Vue-skmern/dist",
+  "build:vue": "cd WEB/Vue-skmern && npm install && npm run build",
   "build:nest": "nest build",
   "build": "npm run build:vue && npm run build:nest",
   "start:prod": "node dist/src/main.js"
 }
+
 
 ,
   "prisma": {
