@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -9,9 +8,8 @@ import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'WEB', 'Vue-skmern', 'dist'),
-      serveRoot: '/', // ⬅️ مهم بزاف باش يخدم من الجذر
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
     AuthModule,
     ServicesModule,
