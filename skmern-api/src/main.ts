@@ -9,9 +9,8 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   
   // Configuration des fichiers statiques
-  app.useStaticAssets(join(__dirname, '..', '..', 'uploads'), {
-    prefix: '/uploads/',
-  });
+  app.useStaticAssets(join(__dirname, '..', 'WEB', 'Vue-skmern', 'dist'));
+
   
   console.log('📂 Serving static files from:', join(__dirname, '..', 'WEB', 'Vue-skmern', 'dist'));
 

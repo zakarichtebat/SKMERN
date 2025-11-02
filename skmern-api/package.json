@@ -5,23 +5,13 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
- "scripts": {
-  "build:vue": "cd WEB/Vue-skmern && npm install && npm run build",
+"scripts": {
+  "build:vue": "cd ../WEB/Vue-skmern && npm install && npm run build && cp -r ../WEB/Vue-skmern/dist ./WEB/Vue-skmern/dist",
   "build:nest": "nest build",
   "build": "npm run build:vue && npm run build:nest",
-  "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-  "start": "nest start",
-  "start:dev": "nest start --watch",
-  "start:debug": "nest start --debug --watch",
-  "start:prod": "node dist/src/main.js",
-  "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-  "test": "jest",
-  "test:watch": "jest --watch",
-  "test:cov": "jest --coverage",
-  "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-  "test:e2e": "jest --config ./test/jest-e2e.json",
-  "seed": "ts-node prisma/seed.ts"
+  "start:prod": "node dist/src/main.js"
 }
+
 ,
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
