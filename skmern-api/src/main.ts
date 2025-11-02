@@ -13,7 +13,8 @@ async function bootstrap() {
     prefix: '/uploads/',
   });
   
-  console.log('📁 Dossier uploads:', join(__dirname, '..', '..', 'uploads'));
+  console.log('📂 Serving static files from:', join(__dirname, '..', 'WEB', 'Vue-skmern', 'dist'));
+
 
   // Configuration du CORS
   app.enableCors({

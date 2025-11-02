@@ -11,7 +11,7 @@ import { UploadModule } from './upload/upload.module';
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'WEB', 'Vue-skmern', 'dist'),
-      exclude: ['/api*'],
+      serveRoot: '/', // ⬅️ مهم بزاف باش يخدم من الجذر
     }),
     AuthModule,
     ServicesModule,
