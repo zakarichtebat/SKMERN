@@ -1,6 +1,10 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:3000'
+// Détection automatique de l'environnement
+const API_URL = window.location.hostname === 'localhost' 
+  ? 'http://localhost:3000' 
+  : window.location.origin + '/api'
+
 const DEV_MODE = false // Mode production avec vraie API
 
 // Configuration d'axios avec l'URL de base
