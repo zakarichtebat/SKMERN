@@ -184,17 +184,10 @@
               </div>
             </div>
             
-            <!-- Footer Professionnel avec Prix et CTA -->
+            <!-- Footer Professionnel avec CTA -->
             <div class="service-card-footer">
-              <div class="service-price-section">
-                <span class="price-starting">À partir de</span>
-                <div class="price-container">
-                  <span class="price-amount">{{ service.price }}€</span>
-                  <span class="price-frequency">/heure</span>
-                </div>
-              </div>
               <button class="service-cta-professional">
-                <span class="cta-label">Réserver</span>
+                <span class="cta-label">Réserver maintenant</span>
                 <span class="cta-icon-arrow">→</span>
                 <div class="cta-ripple"></div>
               </button>
@@ -873,8 +866,8 @@ export default {
 /* Grille Services Premium */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
   margin-top: 2rem;
   position: relative;
 }
@@ -884,14 +877,14 @@ export default {
   position: relative;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
   border: 2px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 480px;
+  min-height: 360px;
   backdrop-filter: blur(15px);
 }
 
@@ -936,7 +929,7 @@ export default {
 /* ===== Service Image Header Professionnel ===== */
 .service-image-wrapper {
   position: relative;
-  height: 160px;
+  height: 140px;
   overflow: hidden;
   z-index: 2;
 }
@@ -1497,8 +1490,8 @@ export default {
 /* Responsive Design */
 @media (max-width: 1200px) {
   .services-grid {
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
   }
 }
 
@@ -1529,32 +1522,38 @@ export default {
   }
   
   .services-grid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
   }
   
   .service-card {
-    height: 380px;
+    min-height: 340px;
+    height: auto;
   }
   
   .service-content {
-    padding: 1.5rem;
-    height: 260px;
+    padding: 1.2rem;
+  }
+  
+  .service-image-wrapper {
+    height: 120px;
   }
 }
 
 @media (max-width: 480px) {
   .services-section {
-    padding: 4rem 0;
+    padding: 3rem 0;
   }
   
   .service-filters {
     gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
   }
   
   .filter-btn {
     padding: 0.6rem 1rem;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     min-width: 100px;
   }
   
@@ -1563,13 +1562,35 @@ export default {
     gap: 1rem;
   }
   
-  .service-footer {
-    flex-direction: column;
-    gap: 1rem;
+  .service-card {
+    min-height: 320px;
   }
   
-  .service-cta {
+  .service-image-wrapper {
+    height: 100px;
+  }
+  
+  .service-content {
+    padding: 1rem;
+  }
+  
+  .service-title {
+    font-size: 1.1rem;
+  }
+  
+  .service-description {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+  
+  .service-card-footer {
+    padding: 0.8rem 1rem;
+  }
+  
+  .service-cta-professional {
     width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
   }
 }
 
