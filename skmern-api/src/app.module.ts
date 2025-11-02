@@ -9,9 +9,10 @@ import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
+    // ✅ كيخدم سواء Vue داخل ولا خارج skmern-api
     ServeStaticModule.forRoot({
-      // مزيان لاحظ رجعنا بثلاث نقاط بدل جوج
       rootPath: join(__dirname, '..', '..', '..', 'WEB', 'Vue-skmern', 'dist'),
+      exclude: ['/api*'],
     }),
     AuthModule,
     ServicesModule,
