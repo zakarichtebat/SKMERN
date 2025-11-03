@@ -2,7 +2,7 @@
   <div class="service-detail" v-if="service">
     <!-- Header avec retour -->
     <div class="detail-header">
-      <button @click.prevent="handleGoBack" class="back-button">
+      <button type="button" @click.stop.prevent="handleGoBack" class="back-button">
         <span class="back-icon">←</span>
         <span>Retour aux services</span>
       </button>
@@ -43,11 +43,11 @@
           
           <!-- CTA Principal -->
           <div class="hero-actions">
-            <button class="primary-cta">
+            <button type="button" class="primary-cta">
               <span>Réserver maintenant</span>
               <div class="cta-background"></div>
             </button>
-            <button class="secondary-cta">
+            <button type="button" class="secondary-cta">
               <span>Demander un devis</span>
             </button>
           </div>
@@ -57,7 +57,7 @@
         <div class="hero-image">
           <img :src="service.image || '/images/default-service.jpg'" :alt="service.title" />
           <div class="image-overlay">
-            <button class="play-video" @click="showVideoModal = true">
+            <button type="button" class="play-video" @click.prevent="showVideoModal = true">
               <span class="play-icon">▶</span>
               <span>Voir la vidéo</span>
             </button>
@@ -115,7 +115,7 @@
           <h2 class="cta-title">Prêt à réserver ce service ?</h2>
           <p class="cta-subtitle">Nos professionnels sont disponibles pour vous accompagner</p>
           <div class="cta-actions">
-            <button class="primary-cta large">
+            <button type="button" class="primary-cta large">
               <span>Réserver maintenant</span>
               <div class="cta-background"></div>
             </button>
@@ -131,12 +131,12 @@
     <!-- Modal Photo -->
     <div v-if="showPhotoModal" class="modal-overlay" @click="closePhotoModal">
       <div class="photo-modal" @click.stop>
-        <button class="modal-close" @click="closePhotoModal">×</button>
+        <button type="button" class="modal-close" @click.prevent="closePhotoModal">×</button>
         <img :src="servicePhotos[currentPhotoIndex]?.url" :alt="servicePhotos[currentPhotoIndex]?.alt" />
         <div class="photo-nav">
-          <button @click="prevPhoto" class="nav-button">‹</button>
+          <button type="button" @click.prevent="prevPhoto" class="nav-button">‹</button>
           <span class="photo-counter">{{ currentPhotoIndex + 1 }} / {{ servicePhotos.length }}</span>
-          <button @click="nextPhoto" class="nav-button">›</button>
+          <button type="button" @click.prevent="nextPhoto" class="nav-button">›</button>
         </div>
       </div>
     </div>
@@ -144,7 +144,7 @@
     <!-- Modal Vidéo -->
     <div v-if="showVideoModal" class="modal-overlay" @click="closeVideoModal">
       <div class="video-modal" @click.stop>
-        <button class="modal-close" @click="closeVideoModal">×</button>
+        <button type="button" class="modal-close" @click.prevent="closeVideoModal">×</button>
         <div class="video-player">
           <video v-if="currentVideo" controls autoplay>
             <source :src="currentVideo.url" type="video/mp4">
@@ -389,7 +389,12 @@ export default {
     }
   },
   methods: {
-    handleGoBack() {
+    handleGoBack(event) {
+      // Empêcher toute navigation par défaut
+      if (event) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
       // Émet l'événement pour retourner à la page précédente
       this.$emit('goBack')
     },

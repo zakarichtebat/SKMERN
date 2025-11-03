@@ -134,6 +134,8 @@ export default {
       this.currentUser = user
       this.isAuthenticated = true
       this.currentView = 'home'
+      // Mettre à jour l'historique
+      window.history.pushState({ view: 'home' }, '', '#home')
     },
 
     handleLogout() {
@@ -141,6 +143,8 @@ export default {
       this.currentUser = null
       this.isAuthenticated = false
       this.currentView = 'home'
+      // Mettre à jour l'historique
+      window.history.pushState({ view: 'home' }, '', '#home')
     },
 
     handleUserUpdated(updatedUser) {
@@ -159,6 +163,10 @@ export default {
       if (view === 'serviceDetail' && data) {
         this.selectedService = data
       }
+      
+      // Ajouter une entrée dans l'historique du navigateur
+      const state = { view, data }
+      window.history.pushState(state, '', `#${view}`)
     },
 
     goBackToHome() {
@@ -166,6 +174,24 @@ export default {
       this.selectedService = null
       // Scroll vers le haut de la page
       window.scrollTo({ top: 0, behavior: 'smooth' })
+      // Mettre à jour l'historique
+      window.history.pushState({ view: 'home' }, '', '#home')
+    },
+    
+    handleBrowserBack(event) {
+      // Gérer le retour arrière du navigateur
+      if (event.state) {
+        this.currentView = event.state.view || 'home'
+        if (event.state.data) {
+          this.selectedService = event.state.data
+        } else {
+          this.selectedService = null
+        }
+      } else {
+        // Si pas d'état, retourner à l'accueil
+        this.currentView = 'home'
+        this.selectedService = null
+      }
     },
 
     handleScrollToService(category) {
@@ -173,6 +199,8 @@ export default {
       this.filterCategory = category
       // S'assurer qu'on est sur la page d'accueil
       this.currentView = 'home'
+      // Mettre à jour l'historique
+      window.history.pushState({ view: 'home', filterCategory: category }, '', '#home')
       // Réinitialiser après un court délai pour permettre le filtrage
       setTimeout(() => {
         this.filterCategory = null
@@ -194,6 +222,17 @@ export default {
     // Initialiser le service de traduction
     translationService.init()
     this.checkAuthState()
+    
+    // Écouter l'événement de retour arrière du navigateur
+    window.addEventListener('popstate', this.handleBrowserBack)
+    
+    // Initialiser l'état de l'historique
+    window.history.replaceState({ view: 'home' }, '', '#home')
+  },
+  
+  beforeUnmount() {
+    // Retirer l'écouteur d'événement
+    window.removeEventListener('popstate', this.handleBrowserBack)
   }
 }
 </script>
