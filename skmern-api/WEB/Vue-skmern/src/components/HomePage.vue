@@ -81,30 +81,6 @@
             <p class="section-subtitle">{{ t('servicesSubtitle') }}</p>
             <div class="header-divider"></div>
           </div>
-          
-          <!-- Stats Premium avec Animation -->
-          <div class="header-stats">
-            <div class="stat-item">
-              <div class="stat-icon">📊</div>
-              <span class="stat-number">1000+</span>
-              <span class="stat-label">Interventions Réussies</span>
-            </div>
-            <div class="stat-item">
-              <div class="stat-icon">⭐</div>
-              <span class="stat-number">98%</span>
-              <span class="stat-label">Clients Satisfaits</span>
-            </div>
-            <div class="stat-item">
-              <div class="stat-icon">🕐</div>
-              <span class="stat-number">24/7</span>
-              <span class="stat-label">Support Disponible</span>
-            </div>
-            <div class="stat-item">
-              <div class="stat-icon">🔒</div>
-              <span class="stat-number">100%</span>
-              <span class="stat-label">Sécurisé & Assuré</span>
-            </div>
-          </div>
         </div>
         
         <!-- Grille Services Premium -->
@@ -192,6 +168,30 @@
                 <div class="cta-ripple"></div>
               </button>
             </div>
+          </div>
+        </div>
+        
+        <!-- Stats Premium avec Animation (après les services) -->
+        <div class="header-stats" style="margin-top: 4rem;">
+          <div class="stat-item">
+            <div class="stat-icon">📊</div>
+            <span class="stat-number">1000+</span>
+            <span class="stat-label">Interventions Réussies</span>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon">⭐</div>
+            <span class="stat-number">98%</span>
+            <span class="stat-label">Clients Satisfaits</span>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon">🕐</div>
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Support Disponible</span>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon">🔒</div>
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Sécurisé & Assuré</span>
           </div>
         </div>
       </div>
