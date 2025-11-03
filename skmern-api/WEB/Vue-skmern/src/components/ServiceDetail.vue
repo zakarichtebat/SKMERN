@@ -32,11 +32,11 @@
                       :class="['star', { filled: star <= service.rating }]">⭐</span>
               </div>
               <span class="rating-score">{{ service.rating }}/5</span>
-              <span class="reviews-count">({{ service.reviews }} avis)</span>
+             
             </div>
             <div class="price-section">
-              <span class="price-label">À partir de</span>
-              <span class="price-value">{{ service.price }}€</span>
+              <span class="price-label">À partir de votre besoins</span>
+             
               <span class="price-unit">/heure</span>
             </div>
           </div>
@@ -66,19 +66,6 @@
       </div>
     </section>
 
-    <!-- Section Services inclus -->
-    <section class="features-section">
-      <div class="container">
-        <h2 class="section-title">Services inclus</h2>
-        <div class="features-grid">
-          <div v-for="(feature, index) in service.features" :key="index" class="feature-card">
-            <div class="feature-icon">✓</div>
-            <h3 class="feature-title">{{ feature }}</h3>
-            <p class="feature-description">Service professionnel de qualité avec garantie incluse</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- Galerie Photos Améliorée -->
     <section class="gallery-section">
@@ -117,53 +104,9 @@
       </div>
     </section>
 
-    <!-- Section Vidéos -->
-    <section class="videos-section">
-      <div class="container">
-        <h2 class="section-title">Vidéos de nos interventions</h2>
-        <div class="videos-grid">
-          <div v-for="(video, index) in serviceVideos" :key="index" 
-               class="video-item" @click="playVideo(video)">
-            <div class="video-thumbnail">
-              <img :src="video.thumbnail" :alt="video.title" />
-              <div class="video-overlay">
-                <div class="play-button">
-                  <span class="play-icon">▶</span>
-                </div>
-                <div class="video-duration">{{ video.duration }}</div>
-              </div>
-            </div>
-            <div class="video-info">
-              <h3 class="video-title">{{ video.title }}</h3>
-              <p class="video-description">{{ video.description }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  
 
-    <!-- Section Témoignages -->
-    <section class="testimonials-section">
-      <div class="container">
-        <h2 class="section-title">Avis clients</h2>
-        <div class="testimonials-grid">
-          <div v-for="(testimonial, index) in serviceTestimonials" :key="index" class="testimonial-card">
-            <div class="testimonial-header">
-              <div class="client-avatar">{{ testimonial.name.charAt(0) }}</div>
-              <div class="client-info">
-                <h4 class="client-name">{{ testimonial.name }}</h4>
-                <div class="testimonial-stars">
-                  <span v-for="star in 5" :key="star" 
-                        :class="['star', { filled: star <= testimonial.rating }]">⭐</span>
-                </div>
-              </div>
-            </div>
-            <p class="testimonial-text">"{{ testimonial.text }}"</p>
-            <div class="testimonial-date">{{ testimonial.date }}</div>
-          </div>
-        </div>
-      </div>
-    </section>
+   
 
     <!-- CTA Final -->
     <section class="cta-section">
@@ -177,7 +120,7 @@
               <div class="cta-background"></div>
             </button>
             <div class="contact-info">
-              <span class="phone">📞 01 23 45 67 89</span>
+              <span class="phone">📞 06 19 95 58 98</span>
               <span class="availability">Disponible 24h/24</span>
             </div>
           </div>

@@ -14,7 +14,11 @@
       <!-- Main Content -->
       <main class="app-main">
         <!-- Page d'accueil -->
-        <HomePage v-if="currentView === 'home'" @viewChange="handleViewChange" />
+        <HomePage 
+          v-if="currentView === 'home'" 
+          @viewChange="handleViewChange"
+          :filterCategory="filterCategory"
+        />
         
         <!-- Page de contact -->
         <ContactPage v-else-if="currentView === 'contact'" />
@@ -76,7 +80,7 @@
       </main>
 
       <!-- Footer Component -->
-      <AppFooter />
+      <AppFooter @scroll-to-service="handleScrollToService" />
     </div>
   </div>
 </template>
@@ -112,7 +116,8 @@ export default {
       currentView: 'home', // 'home', 'login', 'register', 'contact', 'serviceDetail', 'admin'
       currentUser: null,
       isAuthenticated: false,
-      selectedService: null
+      selectedService: null,
+      filterCategory: null
     }
   },
   computed: {
@@ -159,6 +164,17 @@ export default {
     goBackToHome() {
       this.currentView = 'home'
       this.selectedService = null
+    },
+
+    handleScrollToService(category) {
+      // Définir la catégorie de filtre
+      this.filterCategory = category
+      // S'assurer qu'on est sur la page d'accueil
+      this.currentView = 'home'
+      // Réinitialiser après un court délai pour permettre le filtrage
+      setTimeout(() => {
+        this.filterCategory = null
+      }, 1000)
     },
 
     checkAuthState() {

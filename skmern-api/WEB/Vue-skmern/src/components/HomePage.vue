@@ -257,6 +257,12 @@ import { servicesService } from '../services/api.js'
 
 export default {
   name: 'HomePage',
+  props: {
+    filterCategory: {
+      type: String,
+      default: null
+    }
+  },
   emits: ['viewChange'],
   computed: {
     currentLanguage() {
@@ -267,6 +273,14 @@ export default {
     currentLanguage() {
       // Force la mise à jour quand la langue change
       this.$forceUpdate()
+    },
+    filterCategory(newVal) {
+      if (newVal) {
+        // Scroll vers la section des services quand on filtre
+        this.$nextTick(() => {
+          this.scrollToServices()
+        })
+      }
     }
   },
   data() {
@@ -307,9 +321,18 @@ export default {
   },
   
   computed: {
-    // Retourne tous les services
+    // Retourne tous les services ou filtre par catégorie
     filteredServices() {
-      return this.services
+      if (!this.filterCategory) {
+        return this.services
+      }
+      
+      // Filtrer les services selon la catégorie
+      return this.services.filter(service => {
+        const serviceCategory = service.category?.toLowerCase() || ''
+        const filterCat = this.filterCategory.toLowerCase()
+        return serviceCategory.includes(filterCat) || service.title?.toLowerCase().includes(filterCat)
+      })
     },
     
     // Image actuelle pour le background
