@@ -18,6 +18,7 @@
           v-if="currentView === 'home'" 
           @viewChange="handleViewChange"
           :filterCategory="filterCategory"
+          :isAuthenticated="isAuthenticated"
         />
         
         <!-- Page de contact -->

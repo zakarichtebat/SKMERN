@@ -31,7 +31,7 @@
             <button class="cta-button primary" @click="scrollToServices">
               <span>{{ t('discoverServices') }}</span>
             </button>
-            <button class="cta-button secondary" @click="$emit('viewChange', 'register')">
+            <button v-if="!isAuthenticated" class="cta-button secondary" @click="$emit('viewChange', 'register')">
               <span>{{ t('joinNow') }}</span>
             </button>
           </div>
@@ -261,6 +261,10 @@ export default {
     filterCategory: {
       type: String,
       default: null
+    },
+    isAuthenticated: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['viewChange'],
