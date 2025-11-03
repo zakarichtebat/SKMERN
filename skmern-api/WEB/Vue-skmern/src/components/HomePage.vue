@@ -132,8 +132,8 @@
                 </div>
                 <div class="rating-details">
                   <span class="rating-value">{{ service.rating }}/5</span>
-                  <span class="rating-dot">•</span>
-                  <span class="rating-count">{{ service.reviews }} avis clients</span>
+                  
+                 
                 </div>
               </div>
               
@@ -172,7 +172,7 @@
         </div>
         
         <!-- Stats Premium avec Animation (après les services) -->
-        <div class="header-stats" style="margin-top: 4rem;">
+        <div class="header-stats" style="margin-top: 4rem; margin-left: 90px;">
           <div class="stat-item">
             <div class="stat-icon">📊</div>
             <span class="stat-number">1000+</span>
