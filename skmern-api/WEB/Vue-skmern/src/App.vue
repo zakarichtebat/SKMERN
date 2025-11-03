@@ -164,6 +164,8 @@ export default {
     goBackToHome() {
       this.currentView = 'home'
       this.selectedService = null
+      // Scroll vers le haut de la page
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     },
 
     handleScrollToService(category) {

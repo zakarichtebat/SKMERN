@@ -2,7 +2,7 @@
   <div class="service-detail" v-if="service">
     <!-- Header avec retour -->
     <div class="detail-header">
-      <button @click="$emit('goBack')" class="back-button">
+      <button @click.prevent="handleGoBack" class="back-button">
         <span class="back-icon">←</span>
         <span>Retour aux services</span>
       </button>
@@ -389,6 +389,11 @@ export default {
     }
   },
   methods: {
+    handleGoBack() {
+      // Émet l'événement pour retourner à la page précédente
+      this.$emit('goBack')
+    },
+    
     openPhotoModal(index) {
       this.currentPhotoIndex = index
       this.showPhotoModal = true
