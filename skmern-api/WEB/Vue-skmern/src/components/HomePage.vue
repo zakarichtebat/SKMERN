@@ -172,7 +172,7 @@
         </div>
         
         <!-- Stats Premium avec Animation (après les services) -->
-        <div class="header-stats" style="margin-top: 4rem; margin-left: 90px;">
+        <div class="header-stats">
           <div class="stat-item">
             <div class="stat-icon">📊</div>
             <span class="stat-number">1000+</span>
@@ -829,6 +829,8 @@ export default {
   gap: 2rem;
   width: 100%;
   max-width: 1000px;
+  margin: 4rem auto 0;
+  padding: 0 1rem;
 }
 
 .stat-item {
@@ -1530,12 +1532,26 @@ export default {
   }
   
   .header-stats {
-    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    margin: 2rem auto 0;
+    padding: 0 0.5rem;
   }
   
   .stat-item {
-    padding: 1rem 0.8rem;
+    padding: 1.5rem 1rem;
+  }
+  
+  .stat-icon {
+    font-size: 2rem;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .stat-label {
+    font-size: 0.85rem;
   }
   
   .service-filters {
@@ -1570,6 +1586,30 @@ export default {
 @media (max-width: 480px) {
   .services-section {
     padding: 3rem 0;
+  }
+  
+  .header-stats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 2rem auto 0;
+    padding: 0 1rem;
+  }
+  
+  .stat-item {
+    padding: 1.5rem 1rem;
+  }
+  
+  .stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .stat-number {
+    font-size: 2.2rem;
+  }
+  
+  .stat-label {
+    font-size: 0.9rem;
   }
   
   .service-filters {
