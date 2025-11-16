@@ -84,9 +84,12 @@
                 class="form-select"
               >
                 <option value="">{{ t('selectSubject') }}</option>
-                <option value="menage">{{ t('cleaning') }}</option>
-                <option value="jardinage">{{ t('gardening') }}</option>
-                <option value="reparation">{{ t('repair') }}</option>
+                <option value="menage">🏠 Service de Ménage</option>
+                <option value="jardinage">🌱 Jardinage</option>
+                <option value="reparation">🔧 Réparation</option>
+                <option value="plomberie">🚿 Plomberie</option>
+                <option value="electricite">⚡ Électricité</option>
+                <option value="peinture">🎨 Peinture et Décoration</option>
                 <option value="autre">{{ t('other') }}</option>
               </select>
             </div>
@@ -135,7 +138,7 @@
               <div class="item-icon">📍</div>
               <div class="item-content">
                 <h4>{{ t('address') }}</h4>
-                <p>123 Rue de la Technologie<br>75001 Paris, France</p>
+                <p>NADOR-Maroc SELOUANE<br>62000, MAROC</p>
               </div>
             </div>
 
@@ -143,7 +146,7 @@
               <div class="item-icon">📞</div>
               <div class="item-content">
                 <h4>{{ t('phone') }}</h4>
-                <p>+33 1 23 45 67 89</p>
+                <p>+212 06 19 95 58 98</p>
               </div>
             </div>
 
@@ -151,7 +154,7 @@
               <div class="item-icon">📧</div>
               <div class="item-content">
                 <h4>{{ t('email') }}</h4>
-                <p>contact@skmern.com</p>
+                <p>abdelilahsakkiou.21@gmail.com</p>
               </div>
             </div>
 
