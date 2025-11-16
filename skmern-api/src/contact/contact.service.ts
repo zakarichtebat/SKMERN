@@ -14,8 +14,8 @@ export class ContactService {
       port: parseInt(process.env.SMTP_PORT || '587'),
       secure: false, // true pour 465, false pour les autres ports
       auth: {
-        user: process.env.SMTP_USER || 'abdelilahsakkiou.21@gmail.com',
-        pass: process.env.SMTP_PASS || '', // Mot de passe d'application Gmail
+        user: process.env.SMTP_USER || 'zakariachtebat@gmail.com',
+        pass: process.env.SMTP_PASS || 'pcpegyxzdjkbbwjy', // Mot de passe d'application Gmail
       },
     });
   }
