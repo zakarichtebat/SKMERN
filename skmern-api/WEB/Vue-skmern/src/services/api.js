@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // Détection automatique de l'environnement
 const API_URL = window.location.hostname === 'localhost' 
-  ? 'http://localhost:3000' 
+  ? 'http://localhost:3000/api' 
   : window.location.origin + '/api'
 
 const DEV_MODE = false // Mode production avec vraie API
