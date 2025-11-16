@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // Détection automatique de l'environnement
 const API_URL = window.location.hostname === 'localhost' 
-  ? 'http://localhost:3000' 
+  ? 'http://localhost:3000/api' 
   : window.location.origin + '/api'
 
 const DEV_MODE = false // Mode production avec vraie API
@@ -185,13 +185,24 @@ export const authService = {
 
   // Vérifier si l'utilisateur est connecté
   isAuthenticated() {
-    return !!localStorage.getItem('token')
+    const token = localStorage.getItem('token')
+    return !!(token && token !== 'undefined' && token !== 'null')
   },
 
   // Récupérer l'utilisateur depuis le localStorage
   getCurrentUser() {
     const user = localStorage.getItem('user')
-    return user ? JSON.parse(user) : null
+    if (!user || user === 'undefined' || user === 'null') {
+      return null
+    }
+    try {
+      return JSON.parse(user)
+    } catch (error) {
+      console.error('Erreur lors du parsing de l\'utilisateur:', error)
+      // Nettoyer le localStorage si les données sont corrompues
+      localStorage.removeItem('user')
+      return null
+    }
   },
 
   // Récupérer tous les utilisateurs (ADMIN uniquement)
@@ -247,6 +258,14 @@ export const uploadService = {
         'Content-Type': 'multipart/form-data'
       }
     });
+  }
+}
+
+// Service pour gérer les messages de contact
+export const contactService = {
+  // Envoyer un message de contact
+  async sendMessage(contactData) {
+    return api.post('/contact', contactData);
   }
 }
 

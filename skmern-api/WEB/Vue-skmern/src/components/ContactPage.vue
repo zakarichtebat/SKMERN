@@ -193,6 +193,7 @@
 
 <script>
 import { translationService } from '../services/translation.js'
+import { contactService } from '../services/api.js'
 
 export default {
   name: 'ContactPage',
@@ -237,14 +238,19 @@ export default {
       this.loading = true
 
       try {
-        // Simulation d'envoi (remplacer par votre API)
-        await new Promise(resolve => setTimeout(resolve, 2000))
+        // Envoyer le message via l'API
+        const response = await contactService.sendMessage(this.formData)
         
-        this.success = this.t('messageSent')
-        this.resetForm()
+        if (response.data.success) {
+          this.success = response.data.message || this.t('messageSent')
+          this.resetForm()
+        } else {
+          this.error = response.data.message || this.t('messageError')
+        }
         
       } catch (error) {
-        this.error = this.t('messageError')
+        console.error('Erreur lors de l\'envoi:', error)
+        this.error = error.response?.data?.message || this.t('messageError')
       } finally {
         this.loading = false
       }
