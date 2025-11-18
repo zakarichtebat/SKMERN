@@ -1,23 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { CreateContactDto } from './dto/create-contact.dto';
-import * as nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 @Injectable()
 export class ContactService {
-  private transporter: nodemailer.Transporter;
+  private resend: Resend;
 
   constructor() {
-    // Configuration du transporteur d'email
-    // Utilisez vos propres identifiants SMTP
-    this.transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.gmail.com',
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: false, // true pour 465, false pour les autres ports
-      auth: {
-        user: process.env.SMTP_USER || 'zakariachtebat@gmail.com',
-        pass: process.env.SMTP_PASS || 'pcpegyxzdjkbbwjy', // Mot de passe d'application Gmail
-      },
-    });
+    // Configuration de Resend (gratuit 3000 emails/mois)
+    const apiKey = process.env.RESEND_API_KEY;
+    this.resend = new Resend(apiKey);
   }
 
   async sendContactEmail(createContactDto: CreateContactDto) {
@@ -36,12 +28,8 @@ export class ContactService {
 
     const subjectLabel = subjectMap[sujet] || sujet;
 
-    // Configuration de l'email
+    // Configuration de l'email pour Resend
     const mailOptions = {
-      from: `"FIXILYA Contact" <${process.env.SMTP_USER || 'abdelilahsakkiou.21@gmail.com'}>`,
-      to: process.env.CONTACT_EMAIL || 'abdelilahsakkiou.21@gmail.com',
-      replyTo: email,
-      subject: `Nouveau message de contact - ${subjectLabel}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -170,12 +158,20 @@ export class ContactService {
     };
 
     try {
-      const info = await this.transporter.sendMail(mailOptions);
-      console.log('✅ Email envoyé avec succès:', info.messageId);
+      // Envoyer l'email via Resend API (3000 emails/mois GRATUITS)
+      const result = await this.resend.emails.send({
+        from: `FIXILYA Contact <onboarding@resend.dev>`, // Email par défaut de Resend (gratuit)
+        to: process.env.CONTACT_EMAIL || 'zakariachtebat@gmail.com',
+        reply_to: email,
+        subject: `Nouveau message de contact - ${subjectLabel}`,
+        html: mailOptions.html,
+      });
+      
+      console.log('✅ Email envoyé avec succès via Resend');
       return {
         success: true,
         message: 'Email envoyé avec succès',
-        messageId: info.messageId,
+        messageId: result.data?.id || 'sent',
       };
     } catch (error) {
       console.error('❌ Erreur lors de l\'envoi de l\'email:', error);
