@@ -4,12 +4,11 @@ import { Resend } from 'resend';
 
 @Injectable()
 export class ContactService {
-  private resend: Resend;
-
-  constructor() {
+  private getResend(): Resend {
     // Configuration de Resend (gratuit 3000 emails/mois)
-    const apiKey = process.env.RESEND_API_KEY;
-    this.resend = new Resend(apiKey);
+    // Initialisation lazy pour éviter les erreurs au build time
+    const apiKey = process.env.RESEND_API_KEY || '';
+    return new Resend(apiKey);
   }
 
   async sendContactEmail(createContactDto: CreateContactDto) {
@@ -159,7 +158,8 @@ export class ContactService {
 
     try {
       // Envoyer l'email via Resend API (3000 emails/mois GRATUITS)
-      const result = await this.resend.emails.send({
+      const resend = this.getResend();
+      const result = await resend.emails.send({
         from: `FIXILYA Contact <onboarding@resend.dev>`, // Email par défaut de Resend (gratuit)
         to: process.env.CONTACT_EMAIL || 'zakariachtebat@gmail.com',
         reply_to: email,
