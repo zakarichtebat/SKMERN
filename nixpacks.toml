@@ -1,0 +1,18 @@
+[phases.setup]
+nixPkgs = ['nodejs_20']
+
+[phases.install]
+cmds = [
+  'cd skmern-api',
+  'npm ci',
+  'npx prisma generate'
+]
+
+[phases.build]
+cmds = [
+  'cd skmern-api',
+  'npm run build'
+]
+
+[start]
+cmd = 'cd skmern-api && npm run start:prod'
