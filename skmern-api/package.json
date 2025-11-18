@@ -11,7 +11,8 @@
     "build": "npm run build:vue && npm run build:nest",
     "start:prod": "node dist/src/main.js",
     "postinstall": "prisma generate"
-  },
+  }, 
+  
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
