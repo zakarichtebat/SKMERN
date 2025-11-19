@@ -159,9 +159,15 @@ export class ContactService {
     try {
       // Envoyer l'email via Resend API (3000 emails/mois GRATUITS)
       const resend = this.getResend();
+      
+      // Sur le plan gratuit, utiliser l'email de test de Resend
+      const toEmail = process.env.NODE_ENV === 'production' 
+        ? 'delivered@resend.dev'  // Email de test Resend (toujours vérifié)
+        : process.env.CONTACT_EMAIL || 'zakariachtebat@gmail.com';
+      
       const result = await resend.emails.send({
-        from: `FIXILYA Contact <onboarding@resend.dev>`, // Email par défaut de Resend (gratuit)
-        to: process.env.CONTACT_EMAIL || 'zakariachtebat@gmail.com',
+        from: 'FIXILYA Contact <onboarding@resend.dev>', // Email par défaut de Resend (gratuit)
+        to: toEmail,
         reply_to: email,
         subject: `Nouveau message de contact - ${subjectLabel}`,
         html: mailOptions.html,
