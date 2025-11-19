@@ -11,8 +11,7 @@
     "build": "npm run build:vue && npm run build:nest",
     "start:prod": "node dist/src/main.js",
     "postinstall": "prisma generate"
-  }, 
-  
+  },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
@@ -25,7 +24,6 @@
     "@nestjs/platform-express": "^11.1.8",
     "@nestjs/serve-static": "^5.0.4",
     "@nestjs/swagger": "^11.2.0",
-    "resend": "^3.2.0",
     "@types/multer": "^2.0.0",
     "@types/nodemailer": "^6.4.14",
     "bcrypt": "^6.0.0",
@@ -38,6 +36,7 @@
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.2",
+    "resend": "^3.5.0",
     "rxjs": "^7.8.1",
     "swagger-ui-express": "^5.0.1"
   },

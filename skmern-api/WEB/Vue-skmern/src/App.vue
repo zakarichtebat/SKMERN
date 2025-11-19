@@ -82,6 +82,9 @@
 
       <!-- Footer Component -->
       <AppFooter @scroll-to-service="handleScrollToService" />
+      
+      <!-- WhatsApp Button -->
+      <WhatsAppButton />
     </div>
   </div>
 </template>
@@ -96,6 +99,7 @@ import ContactPage from './components/ContactPage.vue'
 import ServiceDetail from './components/ServiceDetail.vue'
 import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
+import WhatsAppButton from './components/WhatsAppButton.vue'
 import { authService } from './services/api.js'
 import { translationService } from './services/translation.js'
 
@@ -110,7 +114,8 @@ export default {
     ContactPage,
     ServiceDetail,
     AppHeader,
-    AppFooter
+    AppFooter,
+    WhatsAppButton
   },
   data() {
     return {
